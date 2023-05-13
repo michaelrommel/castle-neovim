@@ -2,15 +2,14 @@
 
 echo "Installing apt packages"
 sudo apt-get -y update
-sudo apt-get -y install build-essential autoconf automake pkg-config \
-	libevent-dev libncurses5-dev bison byacc curl tmux git vim \
-	mosh keychain neofetch zsh ncurses-bin gdebi-core apt-file \
-	unzip sysstat net-tools dnsutils \
-	python3-pip universal-ctags software-properties-common \
-	bc dh-autoreconf libcurl4-gnutls-dev libexpat1-dev \
-	gawk gettext libz-dev libssl-dev install-info || exit
-
-sudo apt-get -y install ninja-build gettext cmake unzip curl || exit
+sudo apt-get -y install git curl ninja-build gettext cmake unzip \
+	build-essential autoconf automake universal-ctags || exit
+# 	libevent-dev libncurses5-dev bison byacc tmux vim \
+# 	mosh keychain ncurses-bin gdebi-core apt-file \
+# 	sysstat net-tools dnsutils \
+# 	python3-pip  software-properties-common \
+# 	bc dh-autoreconf libcurl4-gnutls-dev libexpat1-dev \
+# 	gawk gettext libz-dev libssl-dev install-info || exit
 
 echo "Installing ripgrep from github"
 # provides a fast recursive grep
@@ -46,7 +45,7 @@ cd "${HOME}" || exit
 git clone --depth 1 https://github.com/junegunn/fzf.git "${HOME}/.fzf"
 "${HOME}/.fzf/install" --no-key-bindings --no-completion --no-update-rc --no-bash --no-zsh --no-fish
 
-echo "Updating neovim"
+echo "Compiling and installing neovim"
 cd "${HOME}" || exit
 mkdir -p "${HOME}/software/"
 cd "${HOME}/software/" || exit
@@ -68,5 +67,4 @@ mkdir -p "${HOME}/software"
 cd "${HOME}/software" || exit
 scversion="stable" # or "v0.4.7", or "latest"
 curl -sL "https://github.com/koalaman/shellcheck/releases/download/${scversion?}/shellcheck-${scversion?}.linux.x86_64.tar.xz" | tar -xJ
-sudo cp "shellcheck-${scversion}/shellcheck" /usr/bin/
-
+# sudo cp "shellcheck-${scversion}/shellcheck" /usr/bin/

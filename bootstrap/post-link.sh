@@ -1,5 +1,4 @@
 #! /bin/bash
 
-echo "Installing fonts"
+echo "Updating font cache"
 fc-cache -f
-

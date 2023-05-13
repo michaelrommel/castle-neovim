@@ -24,12 +24,14 @@ M.std_mappings = function()
 	end
 
 	wk.register({
+		['gb'] = { "<plug>(comment_toggle_blockwise_visual)", "Comment toggle blockwise (visual)" },
+		['gc'] = { "<plug>(comment_toggle_linewise_visual)", "Comment toggle linewise (visual)" },
+	}, { mode = { "v" } })
+	wk.register({
 		-- moves the cursor left and right in insert mode
 		['<C-h>'] = { "<Left>", "Move 1 char left" },
 		['<C-l>'] = { "<Right>", "Move 1 char right" },
 		-- ['kj'] = { "<Esc>", "Alternative Escape" },
-		['gb'] = { "<plug>(comment_toggle_blockwise)", "Comment toggle blockwise" },
-		['gc'] = { "<plug>(comment_toggle_linewise)", "Comment toggle linewise" },
 	}, { mode = { "i", "v" } })
 	wk.register({
 		-- jumps to splits
