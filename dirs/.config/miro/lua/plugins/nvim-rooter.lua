@@ -3,7 +3,7 @@ return {
 	"notjedi/nvim-rooter.lua",
 	lazy = true,
 	event = "BufEnter",
-	opt = {
+	opts = {
 		rooter_patterns = { ".git", "pyproject.toml" }
 	}
 }

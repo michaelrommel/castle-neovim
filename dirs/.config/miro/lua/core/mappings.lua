@@ -28,6 +28,8 @@ M.std_mappings = function()
 		['<C-h>'] = { "<Left>", "Move 1 char left" },
 		['<C-l>'] = { "<Right>", "Move 1 char right" },
 		-- ['kj'] = { "<Esc>", "Alternative Escape" },
+		['gb'] = { "<plug>(comment_toggle_blockwise)", "Comment toggle blockwise" },
+		['gc'] = { "<plug>(comment_toggle_linewise)", "Comment toggle linewise" },
 	}, { mode = { "i", "v" } })
 	wk.register({
 		-- jumps to splits
@@ -39,6 +41,8 @@ M.std_mappings = function()
 		['<C-S-c>'] = { function() floatterm_toggle() end, "Toggle Terminal" },
 		['[t'] = { function() tc.jump_prev() end, "Previous TODO" },
 		[']t'] = { function() tc.jump_next() end, "Next TODO" },
+		['gb'] = { "<plug>(comment_toggle_blockwise)", "Comment toggle blockwise" },
+		['gc'] = { "<plug>(comment_toggle_linewise)", "Comment toggle linewise" },
 	}, { mode = { "n" } })
 	wk.register({
 		-- jumps to splits

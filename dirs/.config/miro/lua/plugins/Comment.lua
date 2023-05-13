@@ -3,5 +3,11 @@ return {
 	"numToStr/Comment.nvim",
 	lazy = true,
 	event = "BufEnter",
-	config = true,
+	opts = {
+		mappings = {
+			-- we set up keymaps ourselves
+			basic = false,
+			extra = false,
+		}
+	}
 }

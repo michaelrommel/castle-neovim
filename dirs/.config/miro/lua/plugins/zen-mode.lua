@@ -6,7 +6,7 @@ return {
 	dependencies = {
 		"folke/twilight.nvim"
 	},
-	opt = {
+	opts = {
 		window = {
 			-- width = 0.9,
 			width = 120,

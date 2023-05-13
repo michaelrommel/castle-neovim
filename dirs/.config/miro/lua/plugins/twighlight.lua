@@ -3,7 +3,7 @@ return {
 	"folke/twilight.nvim",
 	lazy = true,
 	event = "BufEnter",
-	opt = {
+	opts = {
 		dimming = {
 			alpha = 0.7,
 		}
