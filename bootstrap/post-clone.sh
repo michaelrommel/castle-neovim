@@ -4,7 +4,7 @@ echo "Installing apt packages"
 sudo apt-get -y update
 sudo apt-get -y install git curl ninja-build gettext cmake unzip \
 	build-essential autoconf automake universal-ctags \
-	golang || exit
+	fontconfig || exit
 # 	libevent-dev libncurses5-dev bison byacc tmux vim \
 # 	mosh keychain ncurses-bin gdebi-core apt-file \
 # 	sysstat net-tools dnsutils \
@@ -31,3 +31,9 @@ fi
 
 echo "Installing tree-sitter cli"
 cargo install tree-sitter-cli
+
+if [[ ! -f "${HOME}/.fnm.sh" ]]; then
+	echo "Installing the fast Node Manager (fnm)"
+	cd "${HOME}" || exit
+	curl -fsSL https://github.com/Schniz/fnm/raw/master/.ci/install.sh | bash -s -- --skip-shell
+fi
