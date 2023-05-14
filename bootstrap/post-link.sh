@@ -4,6 +4,6 @@ echo "Updating font cache"
 fc-cache -f
 
 echo "Installing node"
-source "${HOME}/.fnm.sh"
+source "${HOME}/.path.d/20_fnm.sh"
 fnm install 'lts/*'
 fnm default lts-latest
