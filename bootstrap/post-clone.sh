@@ -4,7 +4,7 @@ echo "Installing apt packages"
 sudo apt-get -y update
 sudo apt-get -y install git curl ninja-build gettext cmake unzip \
 	build-essential autoconf automake universal-ctags \
-	fontconfig || exit
+	fontconfig python3-pip || exit
 
 echo "Compiling and installing neovim"
 cd "${HOME}" || exit
@@ -31,3 +31,6 @@ fi
 
 echo "Installing tree-sitter cli"
 cargo install tree-sitter-cli
+
+echo "Installing python neovim module"
+python3 -mpip install neovim
