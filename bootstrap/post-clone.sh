@@ -22,6 +22,12 @@ git checkout stable
 make CMAKE_BUILD_TYPE=Release CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=${HOME}/software/neovim"
 make install
 
+if ! rustup -V >/dev/null 2>&1; then
+	echo "Installing rust"
+	curl https://sh.rustup.rs -sSf | sh -s -- -y
+	export PATH="${HOME}/.cargo/bin:${PATH}"
+	rustup default stable
+fi
+
 echo "Installing tree-sitter cli"
 cargo install tree-sitter-cli
-
