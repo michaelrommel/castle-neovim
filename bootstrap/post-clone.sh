@@ -34,3 +34,7 @@ cargo install tree-sitter-cli
 
 echo "Installing python neovim module"
 python3 -mpip install neovim
+
+echo "Installing neovim-remote"
+python3 -mpip install neovim-remote
+
