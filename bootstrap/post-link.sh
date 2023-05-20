@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+source "${HOME}/.homesick/helper.sh"
+
 if ! node --version >/dev/null 2>&1; then
 	echo "Installing node"
 	source "${HOME}/.path.d/20_fnm.sh"
