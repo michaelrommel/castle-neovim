@@ -60,7 +60,12 @@ M.std_mappings = function()
 		['z'] = { function() require("zen-mode").toggle() end, "Toggle zen mode" },
 		-- find functions with telescope
 		['f'] = {
-			['f'] = { function() ts.find_files() end, "Find files" },
+			['f'] = { function()
+				ts.find_files({
+					find_command =
+					{ 'rg', '--files', '--hidden', '-g', '!.git' }
+				})
+			end, "Find files" },
 			['p'] = { function() tsc.find_files_from_project_git_root() end,
 				"Find files in project" },
 			['g'] = { function() ts.live_grep() end, "Live grep" },
