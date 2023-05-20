@@ -7,5 +7,7 @@ if ! node --version >/dev/null 2>&1; then
 	fnm default lts-latest
 fi
 
-echo "Updating font cache"
-fc-cache -f
+if ! is_mac; then
+	echo "Updating font cache"
+	fc-cache -f
+fi
