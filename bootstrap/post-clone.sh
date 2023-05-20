@@ -4,7 +4,7 @@ source "${HOME}/.homesick/helper.sh"
 
 echo "Installing dependency packages"
 if is_mac; then
-	desired=(curl git shellcheck@0.9 shfmt@1.33 fnm@1.33i universal-ctags \
+	desired=(curl git shellcheck@0.9 shfmt@1.33 fnm@1.33i universal-ctags
 		fontconfig@2.14 python@3.11 tree-sitter@0.20 neovim@0.9)
 	missing=()
 	check_brewed "missing" "${desired[@]}"
@@ -12,9 +12,13 @@ if is_mac; then
 		echo "(brew) installing ${missing[*]}"
 		brew install "${missing[@]}"
 	fi
+	if ! python3 -c 'import pip;' >/dev/null 2>&1; then
+		# add pip3
+		python3 -mensurepip
+	fi
 else
-	desired=(curl git universal-ctags ninja-build gettext cmake unzip \
-	build-essential autoconf automake fontconfig python3-pip)
+	desired=(curl git universal-ctags ninja-build gettext cmake unzip
+		build-essential autoconf automake fontconfig python3-pip)
 	missing=()
 	check_dpkged "missing" "${desired[@]}"
 	if [[ "${#missing[@]}" -gt 0 ]]; then
