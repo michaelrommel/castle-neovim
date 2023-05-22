@@ -2,8 +2,8 @@
 -- grammars when a buffer is opened
 return {
 	"nvim-treesitter/nvim-treesitter",
-	lazy = true,
-	event = "BufEnter",
+	lazy = false,
+	event = { "BufEnter" },
 	build = function()
 		require("nvim-treesitter.install").update({ with_sync = true })
 	end,
