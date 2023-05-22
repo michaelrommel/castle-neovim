@@ -17,9 +17,13 @@ vim.cmd [[autocmd! ColorScheme * highlight FloatBorder guifg=white guibg=#1d2021
 -- disable semantic token highlights from the language servers
 -- they have higher prio than treesitter, but currently are less
 -- granular and override custom captures
--- for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
--- 	vim.api.nvim_set_hl(0, group, {})
--- end
+-- vim.api.nvim_create_autocmd('Colorscheme', {
+-- 	callback = function()
+-- 		for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
+-- 			vim.api.nvim_set_hl(0, group, {})
+-- 		end
+-- 	end
+-- })
 
 -- define here, that removes lspkind as another module
 M.icons = {

@@ -23,7 +23,7 @@ M.on_attach = function(client, bufnr)
 	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
 	-- disable the semantiv tokens
-	client.server_capabilities.semanticTokensProvider = nil
+	-- client.server_capabilities.semanticTokensProvider = nil
 
 	-- print(string.format("%s -> %s", client.name, client.server_capabilities.documentRangeFormattingProvider))
 	if client.supports_method("textDocument/formatting") then
