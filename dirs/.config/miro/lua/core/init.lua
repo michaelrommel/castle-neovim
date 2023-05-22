@@ -6,7 +6,11 @@ local g = vim.g
 -- this is the standard leader for neovim in many configurations
 -- it is the only keymapping we set here, because this needs to be
 -- sourced before the plugin manager
-vim.g.mapleader = " "
+g.mapleader = " "
+
+-- turn off syntax, as we have treesitter highlighting or
+-- alternatively the lsp semantic tokens
+vim.cmd("syntax off")
 
 -- This enables 24 bit aka Truecolor. Also switches to using guifg
 -- attributes instead of cterm attributes:

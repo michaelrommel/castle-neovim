@@ -7,12 +7,12 @@ return {
 	build = function()
 		require("nvim-treesitter.install").update({ with_sync = true })
 	end,
-	opts = {
-		-- ensure_installed = { "c", "lua", "query", "vim", "vimdoc"}
-		-- ensure_installed = { "bash", "cpp", "css", "diff", "dockerfile", "gitcommit", "gitignore", "go", "graphql", "html", "http", "ini", "javascript", "jq", "jsdoc", "json", "jsonc", "json5", "make", "markdown", "mermaid", "python", "regex", "rust", "svelte", "toml", "yaml" },
-		auto_install = true,
-		highlight = {
-			enable = true,
-		}
-	}
+	config = function()
+		require("nvim-treesitter.configs").setup({
+			auto_install = true,
+			highlight = {
+				enable = true,
+			}
+		})
+	end
 }
