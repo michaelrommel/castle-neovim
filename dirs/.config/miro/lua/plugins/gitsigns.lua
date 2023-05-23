@@ -3,5 +3,10 @@ return {
 	"lewis6991/gitsigns.nvim",
 	lazy = true,
 	event = "BufEnter",
-	config = true,
+	config = function()
+		local cm = require("core.mappings")
+		require("gitsigns").setup({
+			on_attach = cm.gitsigns_mappings
+		})
+	end
 }

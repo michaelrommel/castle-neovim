@@ -12,6 +12,7 @@ M.std_mappings = function()
 	local ts = require("telescope.builtin")
 	local tsc = require("configs.conf_telescope")
 	local tc = require("todo-comments")
+	local gs = require("gitsigns")
 	local ttc = require("configs.conf_toggleterm")
 	local term = require('toggleterm.terminal').Terminal
 	local floatterm = term:new(ttc.floatterm_opts)
@@ -60,6 +61,7 @@ M.std_mappings = function()
 		['z'] = { function() require("zen-mode").toggle() end, "Toggle zen mode" },
 		-- find functions with telescope
 		['f'] = {
+			name = "Files",
 			['f'] = { function()
 				ts.find_files({
 					find_command =
@@ -72,6 +74,58 @@ M.std_mappings = function()
 			['b'] = { function() ts.buffers() end, "Find buffers" },
 		}
 	}, { prefix = "<leader>", mode = "n" })
+end
+
+M.gitsigns_mappings = function(bufnr)
+	local wk = require("which-key")
+	local gs = package.loaded.gitsigns
+	wk.register({
+		['h'] = {
+			name = "Hunks (git)",
+			['s'] = { gs.stage_hunk, "Stage hunk (git)" },
+			['r'] = { gs.reset_hunk, "Reset hunk (git)" },
+			['S'] = { gs.stage_buffer, "Stage buffer (git)" },
+			['u'] = { gs.undo_stage_hunk, "Undo stage hunk (git)" },
+			['R'] = { gs.reset_buffer, "Reset buffer (git)" },
+			['p'] = { gs.preview_hunk, "Preview hunk (git)" },
+			['b'] = { function() gs.blame_line({ full = true }) end, "Blame line (git)" },
+			['d'] = { gs.diffthis, "Diff (git)" },
+			['D'] = { function() gs.diffthis('~') end, "Diff tilde (git)" },
+		},
+		['t'] = {
+			name = "Toggle Blame (git)",
+			['b'] = { gs.toggle_current_line_blame, "Toggle blame (git)" },
+			['d'] = { gs.toggle_deleted, "Toggle deleted (git)" },
+		},
+	}, { prefix = "<leader>", buffer = bufnr, mode = "n" })
+	wk.register({
+		['h'] = {
+			name = "Hunks (git)",
+			['s'] = { function() gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, "Stage hunk (git)" },
+			['r'] = { function() gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, "Reset hunk (git)" },
+		},
+	}, { prefix = "<leader>", buffer = bufnr, mode = "v" })
+	wk.register({
+		['[h'] = {
+			function()
+				if vim.wo.diff then return '[c' end
+				vim.schedule(function() gs.prev_hunk() end)
+				return '<Ignore>'
+			end,
+			"Previous hunk (git)"
+		},
+		[']h'] = {
+			function()
+				if vim.wo.diff then return ']c' end
+				vim.schedule(function() gs.next_hunk() end)
+				return '<Ignore>'
+			end,
+			"Next hunk (git)"
+		},
+	}, { mode = "n", buffer = bufnr, expr = true })
+	wk.register({
+		['ih'] = { ":<C-U>Gitsigns select_hunk<cr>" },
+	}, { mode = { "o", "x" }, buffer = bufnr })
 end
 
 M.cmp_mappings = function()
@@ -155,7 +209,6 @@ M.dap_mappings = function()
 	local wk = require("which-key")
 	-- standard key mappings
 	wk.register({
-		name = "Debug",
 		-- step into the function: mnemonic debug in
 		['<C-i>'] = { function() require('dap').step_into() end, "Step Into" },
 		-- step over the function: mnemonic debug jump over
@@ -215,10 +268,13 @@ end
 M.lsp_mappings = function(bufnr)
 	local wk = require("which-key")
 	wk.register({
-		['gD'] = { lsp.buf.declaration, "Goto declaration" },
-		['gd'] = { lsp.buf.definition, "Goto definition" },
-		['gi'] = { lsp.buf.implementation, "Goto implementation" },
-		['gr'] = { lsp.buf.references, "Goto references" },
+		['g'] = {
+			name = "Goto",
+			['D'] = { lsp.buf.declaration, "Goto declaration" },
+			['d'] = { lsp.buf.definition, "Goto definition" },
+			['i'] = { lsp.buf.implementation, "Goto implementation" },
+			['r'] = { lsp.buf.references, "Goto references" },
+		},
 		['K'] = { lsp.buf.hover, "Show LSP symbol info" },
 		-- ['<C-k>'] = { lsp.buf.signature_help, "Show LSP function signature" },
 		['[d]'] = { diagnostic.goto_prev, "Goto previous diagnostics" },
@@ -227,14 +283,20 @@ M.lsp_mappings = function(bufnr)
 	wk.register({
 		-- opens up the nvim tree
 		['t'] = { lsp.buf.type_definition, "Goto type definition" },
-		['rn'] = { lsp.buf.rename, "Rename all symbol occurrences" },
+		['r'] = {
+			name = "Rename",
+			['n'] = { lsp.buf.rename, "Rename all symbol occurrences" },
+		},
 		['D'] = { diagnostic.open_float, "Open diagnostics float" },
 		['q'] = { diagnostic.setloclist, "Open quickfix window" },
-		['wa'] = { lsp.buf.add_workspace_folder, "Add workspace folder" },
-		['wr'] = { lsp.buf.remove_workspace_folder, "Remove workspace folder" },
-		['wl'] = { function()
-			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-		end, "List all workspaces" }
+		['w'] = {
+			name = "Workspace",
+			['a'] = { lsp.buf.add_workspace_folder, "Add workspace folder" },
+			['r'] = { lsp.buf.remove_workspace_folder, "Remove workspace folder" },
+			['l'] = { function()
+				print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+			end, "List all workspaces" }
+		},
 	}, { prefix = "<leader>", mode = "n", buffer = bufnr, noremap = true, silent = true })
 end
 
