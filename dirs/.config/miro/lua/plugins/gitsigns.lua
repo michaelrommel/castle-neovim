@@ -13,7 +13,10 @@ return {
 				virt_text_pos = 'right_align', -- 'eol' | 'overlay' | 'right_align'
 				delay = 1000,
 				ignore_whitespace = false,
-			}
+			},
+			preview_config = {
+				border = "rounded",
+			},
 		})
 	end
 }
