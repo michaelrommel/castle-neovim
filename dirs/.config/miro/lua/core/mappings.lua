@@ -80,29 +80,29 @@ M.gitsigns_mappings = function(bufnr)
 	local wk = require("which-key")
 	local gs = package.loaded.gitsigns
 	wk.register({
-		['h'] = {
-			name = "Hunks (git)",
-			['s'] = { gs.stage_hunk, "Stage hunk (git)" },
-			['r'] = { gs.reset_hunk, "Reset hunk (git)" },
-			['S'] = { gs.stage_buffer, "Stage buffer (git)" },
-			['u'] = { gs.undo_stage_hunk, "Undo stage hunk (git)" },
-			['R'] = { gs.reset_buffer, "Reset buffer (git)" },
-			['p'] = { gs.preview_hunk, "Preview hunk (git)" },
-			['b'] = { function() gs.blame_line({ full = true }) end, "Blame line (git)" },
-			['d'] = { gs.diffthis, "Diff (git)" },
-			['D'] = { function() gs.diffthis('~') end, "Diff tilde (git)" },
-		},
-		['t'] = {
-			name = "Toggle Blame (git)",
-			['b'] = { gs.toggle_current_line_blame, "Toggle blame (git)" },
-			['d'] = { gs.toggle_deleted, "Toggle deleted (git)" },
+		['g'] = {
+			name = "Git",
+			['s'] = { gs.stage_hunk, "Stage hunk" },
+			['r'] = { gs.reset_hunk, "Reset hunk" },
+			['u'] = { gs.undo_stage_hunk, "Undo stage hunk" },
+			['S'] = { gs.stage_buffer, "Stage buffer" },
+			['R'] = { gs.reset_buffer, "Reset buffer" },
+			['p'] = { gs.preview_hunk, "Preview hunk" },
+			['b'] = { function() gs.blame_line({ full = true }) end, "Blame line" },
+			['d'] = { gs.diffthis, "Diff" },
+			['D'] = { function() gs.diffthis('~') end, "Diff ~ (last commit)" },
+			['t'] = {
+				name = "Toggles",
+				['b'] = { gs.toggle_current_line_blame, "Toggle blame" },
+				['d'] = { gs.toggle_deleted, "Toggle deleted" },
+			},
 		},
 	}, { prefix = "<leader>", buffer = bufnr, mode = "n" })
 	wk.register({
-		['h'] = {
-			name = "Hunks (git)",
-			['s'] = { function() gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, "Stage hunk (git)" },
-			['r'] = { function() gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, "Reset hunk (git)" },
+		['g'] = {
+			name = "Git",
+			['s'] = { function() gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, "Stage hunk" },
+			['r'] = { function() gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, "Reset hunk" },
 		},
 	}, { prefix = "<leader>", buffer = bufnr, mode = "v" })
 	wk.register({
@@ -112,7 +112,7 @@ M.gitsigns_mappings = function(bufnr)
 				vim.schedule(function() gs.prev_hunk() end)
 				return '<Ignore>'
 			end,
-			"Previous hunk (git)"
+			"Previous hunk"
 		},
 		[']h'] = {
 			function()
@@ -120,7 +120,7 @@ M.gitsigns_mappings = function(bufnr)
 				vim.schedule(function() gs.next_hunk() end)
 				return '<Ignore>'
 			end,
-			"Next hunk (git)"
+			"Next hunk"
 		},
 	}, { mode = "n", buffer = bufnr, expr = true })
 	wk.register({
