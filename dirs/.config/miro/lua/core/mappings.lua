@@ -72,7 +72,14 @@ M.std_mappings = function()
 				"Find files in project" },
 			['g'] = { function() ts.live_grep() end, "Live grep" },
 			['b'] = { function() ts.buffers() end, "Find buffers" },
-		}
+		},
+		['b'] = {
+			name = "Browse",
+			['d'] = { function() require("browse.devdocs").search() end,
+				"DevDocs" },
+			['g'] = { function() require("browse.devdocs").input_search() end,
+				"Google" },
+		},
 	}, { prefix = "<leader>", mode = "n" })
 end
 
