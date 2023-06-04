@@ -27,11 +27,17 @@ return {
 				}),
 				nls.builtins.code_actions.shellcheck,
 				nls.builtins.diagnostics.shellcheck,
-				nls.builtins.formatting.isort.with({
-					extra_args = { "--profile", "black", "-l", "100" }
-				}),
+				-- nls.builtins.formatting.isort.with({
+				-- 	extra_args = { "--profile", "black", "-l", "100" }
+				-- }),
 				nls.builtins.formatting.black.with({
 					extra_args = { "--line-length", "100" }
+				}),
+				nls.builtins.formatting.ruff.with({
+					extra_args = { "--fix", "-n", "-e", "--stdin-filenam", "$FILENAME", "-" }
+				}),
+				nls.builtins.diagnostics.ruff.with({
+					extra_args = { "-n", "-e", "--stdin-filenam", "$FILENAME", "-" }
 				}),
 				nls.builtins.formatting.prettier.with({
 					filetypes = { "html", "json", "jsonc", "json5", "yaml", "markdown" },

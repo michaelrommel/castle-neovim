@@ -14,7 +14,7 @@ return {
 	config = function()
 		require('mason-lspconfig').setup({
 			ensure_installed = { "bashls", "cssls", "graphql", "html", "lua_ls", "pyright",
-				"rust_analyzer", "svelte", "tailwindcss", "tsserver" },
+				"ruff_lsp", "rust_analyzer", "svelte", "tailwindcss", "tsserver" },
 			-- automatic_installation = true,
 		})
 
