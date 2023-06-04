@@ -69,6 +69,37 @@ return {
 					}
 				})
 			end,
+			["pyright"] = function()
+				require("lspconfig").pyright.setup({
+					on_attach = on_attach,
+					capabilities = capabilities,
+					handlers = {
+						["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help),
+					}
+				})
+			end,
+			["rust_analyzer"] = function()
+				require("lspconfig").rust_analyzer.setup({
+					on_attach = on_attach,
+					capabilities = capabilities,
+					settings = {
+						['rust-analyzer'] = {
+							cargo = {
+								buildScripts = {
+									enable = true,
+								}
+							},
+							checkOnSave = {
+								allFeatures = true,
+								overrideCommand = {
+									'cargo', 'clippy', '--workspace', '--message-format=json',
+									'--all-targets', '--all-features'
+								}
+							},
+						}
+					}
+				})
+			end,
 		}
 	end
 }

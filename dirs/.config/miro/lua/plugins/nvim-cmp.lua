@@ -9,6 +9,8 @@ return {
 	dependencies = {
 		-- get suggestions from language servers
 		"hrsh7th/cmp-nvim-lsp",
+		-- get extended function signatures
+		"hrsh7th/cmp-nvim-lsp-signature-help",
 		-- get text fragments from current buffer, mostly sensible for
 		-- markdown texts or so
 		"hrsh7th/cmp-buffer",
@@ -83,6 +85,7 @@ return {
 				{ name = "gitcommit" },
 				{ name = 'vsnip' },
 				{ name = 'nvim_lsp' },
+				{ name = 'nvim_lsp_signature_help' },
 				{ name = 'path' },
 			}, {
 				{ name = "buffer" }

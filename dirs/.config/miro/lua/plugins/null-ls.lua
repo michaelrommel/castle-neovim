@@ -27,9 +27,6 @@ return {
 				}),
 				nls.builtins.code_actions.shellcheck,
 				nls.builtins.diagnostics.shellcheck,
-				-- nls.builtins.formatting.isort.with({
-				-- 	extra_args = { "--profile", "black", "-l", "100" }
-				-- }),
 				nls.builtins.formatting.black.with({
 					extra_args = { "--line-length", "100" }
 				}),
@@ -38,6 +35,9 @@ return {
 				}),
 				nls.builtins.diagnostics.ruff.with({
 					extra_args = { "-n", "-e", "--stdin-filenam", "$FILENAME", "-" }
+				}),
+				nls.builtins.formatting.rustfmt.with({
+					extra_args = { "--edition=2021" }
 				}),
 				nls.builtins.formatting.prettier.with({
 					filetypes = { "html", "json", "jsonc", "json5", "yaml", "markdown" },
