@@ -71,6 +71,7 @@ return {
 					vim_item.menu = ({
 						buffer = "[buf]",
 						nvim_lsp = "[lsp]",
+						nvim_lsp_signature_help = "[sig]",
 						luasnip = "[lsnip]",
 						vsnip = "[vsnip]",
 						nvim_lua = "[lua]",

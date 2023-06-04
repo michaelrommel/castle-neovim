@@ -3,7 +3,16 @@ local M = {}
 local deprecatedFormatters = { "tsserver", "jsonls" }
 
 -- needs to be a global to be used also as formatexpr
-function Lspformatter(bufnr)
+function LspRangeFormat()
+	local range = {
+		['start'] = { row = vim.v.lnum, col = 0 },
+		['end'] = { row = vim.v.lnum + vim.v.count, col = 0 },
+	}
+	vim.lsp.buf.format({ range = range })
+end
+
+-- needs to be a global to be used also as formatexpr
+function LspFormat(bufnr)
 	vim.lsp.buf.format({
 		-- filter = function(client)
 		-- 	local deprecated = false
@@ -22,7 +31,7 @@ end
 M.on_attach = function(client, bufnr)
 	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-	-- disable the semantiv tokens
+	-- disable the semantic tokens
 	-- client.server_capabilities.semanticTokensProvider = nil
 
 	-- print(string.format("%s -> %s", client.name, client.server_capabilities.documentRangeFormattingProvider))
@@ -41,11 +50,18 @@ M.on_attach = function(client, bufnr)
 				group = augroup,
 				buffer = bufnr,
 				callback = function()
-					Lspformatter(bufnr)
+					LspFormat(bufnr)
 				end,
 			})
 			-- we can use the lsp formatter also for gq commands
-			vim.api.nvim_buf_set_option(bufnr, "formatexpr", 'v:lua.Lspformatter()')
+			-- print(string.format("%s -> %s", client.name, client.server_capabilities.documentRangeFormattingProvider))
+			if client.supports_method("textDocument/rangeFormatting") then
+				-- print(client.name .. " can range format")
+				vim.api.nvim_buf_set_option(bufnr, "formatexpr", 'v:lua.LspRangeFormat()')
+			else
+				-- print(client.name .. " cannot range format")
+				vim.api.nvim_buf_set_option(bufnr, "formatexpr", 'v:lua.LspFormat()')
+			end
 		end
 	end
 
@@ -69,7 +85,7 @@ M.on_attach = function(client, bufnr)
 		{ border = "rounded" }
 	)
 	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-		vim.lsp.handlers.hover,
+		vim.lsp.handlers.signature_help,
 		{ border = "rounded" }
 	)
 	vim.diagnostic.config({

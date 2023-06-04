@@ -20,7 +20,7 @@ return {
 
 		-- inject default capabilities from completion module
 		local capabilities = require('cmp_nvim_lsp').default_capabilities()
-		-- print(vim.inspect(vim.tbl_keys(vim.lsp.handlers)))
+		-- print(vim.inspect(vim.tbl_keys(capabilities)))
 
 		vim.g.cursorhold_updatetime = 500
 
@@ -32,14 +32,6 @@ return {
 			severity_sort = false,
 		})
 
-		-- local rangeFormatter = vim.lsp.handlers["textDocument/rangeFormatter"]
-
-		-- LSP settings (for overriding per client)
-		-- local handlers = {
-		-- 	["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover),
-		-- 	["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help),
-		-- }
-
 		local on_attach = require("configs.conf_lsp").on_attach
 
 		require("mason-lspconfig").setup_handlers {
@@ -48,7 +40,6 @@ return {
 				require("lspconfig")[server_name].setup({
 					on_attach = on_attach,
 					capabilities = capabilities,
-					--handlers = handlers
 				})
 			end,
 			-- Next, you can provide a dedicated handler for specific servers.
