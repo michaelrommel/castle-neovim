@@ -1,6 +1,6 @@
 local M = {}
 
-local deprecatedFormatters = { "tsserver", "jsonls" }
+local deprecatedFormatters = { "tsserver", "jsonls", "null-ls/markdown" }
 
 -- needs to be a global to be used also as formatexpr
 function LspRangeFormat()
@@ -38,11 +38,22 @@ M.on_attach = function(client, bufnr)
 	if client.supports_method("textDocument/formatting") then
 		local deprecated = false
 		for _, n in ipairs(deprecatedFormatters) do
-			deprecated = deprecated or client.name == n
+			local _, _, c, f = string.find(n, '(.*)/(.*)')
+			if c then
+				-- there was a complex combination given
+				deprecated = deprecated or (client.name == c and f == vim.bo.filetype)
+			else
+				deprecated = deprecated or client.name == n
+			end
 		end
 		if deprecated then
 			client.server_capabilities.documentFormattingProvider = false
 			client.server_capabilities.documentRangeFormattingProvider = false
+			if client.name == "null-ls" then
+				if not require("null-ls.generators").can_run(vim.bo[bufnr].filetype, require("null-ls.methods").lsp.FORMATTING) then
+					vim.bo[bufnr].formatexpr = nil
+				end
+			end
 		else
 			local augroup = vim.api.nvim_create_augroup("LspFormatting", { clear = true })
 			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
