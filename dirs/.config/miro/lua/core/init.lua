@@ -63,6 +63,12 @@ opt.timeoutlen = 500
 -- for minimal tabline
 opt.showtabline = 2
 
+-- treat zsh like bash
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+	pattern = { "*.sh", "*.zsh" },
+	command = "silent! set filetype=sh",
+})
+
 -- disable some default providers
 for _, provider in ipairs { "node", "perl", "ruby" } do
 	g["loaded_" .. provider .. "_provider"] = 0

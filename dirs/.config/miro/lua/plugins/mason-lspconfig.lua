@@ -2,7 +2,8 @@
 return {
 	"williamboman/mason-lspconfig.nvim",
 	lazy = true,
-	ft = { "bash", "css", "graphql", "html", "json", "json5", "lua", "python", "rust", "svelte", "javascript" },
+	ft = { "sh", "bash", "zsh", "css", "graphql", "html", "json", "json5", "lua", "python", "rust", "svelte",
+		"javascript" },
 	dependencies = {
 		"williamboman/mason.nvim",
 		-- language server configuration
@@ -43,6 +44,13 @@ return {
 				})
 			end,
 			-- Next, you can provide a dedicated handler for specific servers.
+			["bashls"] = function()
+				require("lspconfig").bashls.setup({
+					on_attach = on_attach,
+					capabilities = capabilities,
+					filetypes = { "sh", "bash", "zsh" },
+				})
+			end,
 			["lua_ls"] = function()
 				require("lspconfig").lua_ls.setup({
 					on_attach = on_attach,
