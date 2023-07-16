@@ -1,2 +1,4 @@
 tags
 dirs/.config/miro/lazy-lock.json
+dirs/software/examples/nodejs/node_modules
+dirs/software/examples/nodejs/package-lock.json
