@@ -12,6 +12,7 @@ return {
 		local nls = require("null-ls")
 		local on_attach = require("configs.conf_lsp").on_attach
 		nls.setup({
+			border = 'rounded',
 			debug = true,
 			root_dir = require("null-ls.utils").root_pattern(".null-ls-root", "package.json", "Makefile", ".git"),
 			sources = {
