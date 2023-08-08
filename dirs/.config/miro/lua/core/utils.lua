@@ -48,4 +48,19 @@ M.dump = function(t)
 	end
 end
 
+M.is_wsl = (function()
+	local output = vim.fn.systemlist "uname -r"
+	return not not string.find(output[1] or "", "WSL")
+end)()
+
+M.is_mac = (function()
+	local output = vim.fn.systemlist "uname -s"
+	return not not string.find(output[1] or "", "Darwin")
+end)()
+
+M.is_linux = (function()
+	local output = vim.fn.systemlist "uname -s"
+	return not not string.find(output[1] or "", "Linux")
+end)()
+
 return M

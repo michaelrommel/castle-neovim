@@ -1,4 +1,4 @@
--- zen mode and dimming
+-- rust lsp and debugging tooling
 return {
 	"simrat39/rust-tools.nvim",
 	lazy = false,
@@ -9,6 +9,21 @@ return {
 		local rt = require("rust-tools")
 		local mr = require("mason-registry")
 		local code = mr.get_package("codelldb"):get_install_path()
+		local utils = require("core.utils")
+		local adapter = nil
+		if utils.is_mac then
+			print(string.format("mac: %s", code))
+			adapter = require("rust-tools.dap").get_codelldb_adapter(
+				code .. "/extension/adapter/codelldb",
+				code .. "/extension/lldb/lib/liblldb.dylib"
+			)
+		else
+			print(string.format("linux: %s", code))
+			adapter = require("rust-tools.dap").get_codelldb_adapter(
+				code .. "/extension/adapter/codelldb",
+				code .. "/extension/lldb/lib/liblldb.so"
+			)
+		end
 		-- print(string.format("code: %s", code))
 		local opts = {
 			tools = {
@@ -17,10 +32,7 @@ return {
 				},
 			},
 			dap = {
-				adapter = require("rust-tools.dap").get_codelldb_adapter(
-					code .. "/extension/adapter/codelldb",
-					code .. "/extension/lldb/lib/liblldb.so"
-				)
+				adapter = adapter
 			},
 			server = {
 				on_attach = function(_, bufnr)

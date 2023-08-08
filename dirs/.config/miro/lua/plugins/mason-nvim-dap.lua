@@ -2,11 +2,11 @@
 return {
 	"jay-babu/mason-nvim-dap.nvim",
 	lazy = true,
-	ft = { "python", "javascript" },
+	ft = { "python", "javascript", "rust" },
 	dependencies = {
 		"williamboman/mason.nvim"
 	},
 	opts = {
-		ensure_installed = { "js", "python" }
+		ensure_installed = { "js", "python", "codelldb" }
 	}
 }

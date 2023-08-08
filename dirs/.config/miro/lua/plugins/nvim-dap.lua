@@ -8,6 +8,8 @@ return {
 		require("core.mappings").dap_mappings()
 		-- set up the javascript adapter, the nvim-dap-vscode-js does not work
 		require("configs.conf_dap_js").setup()
+		-- set up the rust adapter
+		require("configs.conf_dap_rust").setup()
 	end,
 	dependencies = {
 		"jay-babu/mason-nvim-dap.nvim",

@@ -1,6 +1,7 @@
 local M = {}
 
 local deprecatedFormatters = { "tsserver", "jsonls", "null-ls/markdown" }
+local utf8 = require("core.utils").utf8
 
 -- needs to be a global to be used also as formatexpr
 function LspRangeFormat()
@@ -84,7 +85,7 @@ M.on_attach = function(client, bufnr)
 				close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
 				border = 'rounded',
 				source = 'always',
-				prefix = ' ',
+				prefix = utf8(0xf082d) .. ' ',
 				scope = 'cursor',
 			}
 			vim.diagnostic.open_float(nil, opts)

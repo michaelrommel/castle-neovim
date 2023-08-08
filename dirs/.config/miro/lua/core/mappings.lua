@@ -220,8 +220,12 @@ M.dap_mappings = function()
 		['<C-i>'] = { function() require('dap').step_into() end, "Step Into" },
 		-- step over the function: mnemonic debug jump over
 		['<C-j>'] = { function() require('dap').step_over() end, "Step Over" },
-		-- step out to the calling function, no mnemonic, just an unused key in that area
-		['<C-k>'] = { function() require('dap').step_out() end, "Step Out" },
+		-- step out to the calling function: mnemonic out
+		['<C-o>'] = { function() require('dap').step_out() end, "Step Out" },
+		-- terminate debugging session: mnemonic kill debugger
+		['<C-k>'] = { function() require('dap').terminate() end, "Kill/Stop Debugger" },
+		-- start debugging: mnemonic play
+		['<C-p>'] = { function() require('dap').continue() end, "Play" },
 	})
 	-- document the leader key mappings
 	wk.register({
