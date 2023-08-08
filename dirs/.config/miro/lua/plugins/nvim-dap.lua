@@ -2,7 +2,7 @@
 return {
 	"mfussenegger/nvim-dap",
 	lazy = true,
-	ft = { "python", "javascript" },
+	ft = { "python", "javascript", "rust" },
 	config = function()
 		-- register key mappings for working in debug mode
 		require("core.mappings").dap_mappings()

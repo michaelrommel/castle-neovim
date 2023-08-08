@@ -24,6 +24,8 @@ return {
 		"hrsh7th/cmp-vsnip",
 		"hrsh7th/vim-vsnip",
 		"michaelrommel/cmp-gitcommit",
+		-- crates.io provider
+		"saecki/crates.nvim",
 	},
 	config = function()
 		local cmp = require("cmp")
@@ -88,6 +90,7 @@ return {
 				{ name = 'nvim_lsp' },
 				{ name = 'nvim_lsp_signature_help' },
 				{ name = 'path' },
+				{ name = 'crates' },
 			}, {
 				{ name = "buffer" }
 			}),
@@ -102,8 +105,6 @@ return {
 		-- cmp.setup.cmdline(':', {
 		-- 	mapping = cmp.mapping.preset.cmdline(),
 		-- 	sources = cmp.config.sources({
-		-- 		-- 	{ name = 'path' }
-		-- 		-- }, {
 		-- 		{ name = 'cmdline' }
 		-- 	})
 		-- })

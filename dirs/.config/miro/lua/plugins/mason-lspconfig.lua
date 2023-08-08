@@ -55,6 +55,7 @@ return {
 				require("lspconfig").lua_ls.setup({
 					on_attach = on_attach,
 					capabilities = capabilities,
+					filetypes = { "lua" },
 					settings = {
 						Lua = {
 							diagnostics = {
@@ -72,33 +73,38 @@ return {
 				require("lspconfig").pyright.setup({
 					on_attach = on_attach,
 					capabilities = capabilities,
+					filetypes = { "python" },
 					handlers = {
 						["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help),
 					}
 				})
 			end,
-			["rust_analyzer"] = function()
-				require("lspconfig").rust_analyzer.setup({
-					on_attach = on_attach,
-					capabilities = capabilities,
-					settings = {
-						['rust-analyzer'] = {
-							cargo = {
-								buildScripts = {
-									enable = true,
-								}
-							},
-							checkOnSave = {
-								allFeatures = true,
-								overrideCommand = {
-									'cargo', 'clippy', '--workspace', '--message-format=json',
-									'--all-targets', '--all-features'
-								}
-							},
-						}
-					}
-				})
-			end,
+			["rust_analyzer"] = function() end
+			-- ["rust_analyzer"] = function()
+			-- 	require("lspconfig").rust_analyzer.setup({
+			-- 		on_attach = on_attach,
+			-- 		capabilities = capabilities,
+			-- 		filetypes = { "rust" },
+			-- 		root_dir = require("lspconfig/util").root_pattern("Cargo.toml"),
+			-- 		settings = {
+			-- 			['rust-analyzer'] = {
+			-- 				cargo = {
+			-- 					allFeatures = true,
+			-- 					buildScripts = {
+			-- 						enable = true,
+			-- 					}
+			-- 				},
+			-- 				checkOnSave = {
+			-- 					allFeatures = true,
+			-- 					overrideCommand = {
+			-- 						'cargo', 'clippy', '--workspace', '--message-format=json',
+			-- 						'--all-targets', '--all-features'
+			-- 					}
+			-- 				},
+			-- 			}
+			-- 		}
+			-- 	})
+			-- end,
 		}
 	end
 }

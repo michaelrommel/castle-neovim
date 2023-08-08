@@ -56,7 +56,7 @@ M.std_mappings = function()
 		-- opens up the nvim tree
 		['e'] = { function() require("nvim-tree").focus() end, "Open explorer tree" },
 		-- clears search highlighting
-		['c'] = { "<cmd>nohl<cr>", "Clear search highlights" },
+		['h'] = { "<cmd>nohl<cr>", "Clear search highlights" },
 		-- zen mode
 		['z'] = { function() require("zen-mode").toggle() end, "Toggle zen mode" },
 		-- find functions with telescope
@@ -274,6 +274,18 @@ end
 
 M.lsp_mappings = function(bufnr)
 	local wk = require("which-key")
+	local function show_documentation()
+		local filetype = vim.bo.filetype
+		if vim.tbl_contains({ 'vim', 'help' }, filetype) then
+			vim.cmd('h ' .. vim.fn.expand('<cword>'))
+		elseif vim.tbl_contains({ 'man' }, filetype) then
+			vim.cmd('Man ' .. vim.fn.expand('<cword>'))
+		elseif vim.fn.expand('%:t') == 'Cargo.toml' and require('crates').popup_available() then
+			require('crates').show_popup()
+		else
+			vim.lsp.buf.hover()
+		end
+	end
 	wk.register({
 		['g'] = {
 			name = "Goto",
@@ -282,7 +294,8 @@ M.lsp_mappings = function(bufnr)
 			['i'] = { lsp.buf.implementation, "Goto implementation" },
 			['r'] = { lsp.buf.references, "Goto references" },
 		},
-		['K'] = { lsp.buf.hover, "Show LSP symbol info" },
+		['K'] = { show_documentation, "Show LSP symbol info / docs" },
+		-- ['K'] = { lsp.buf.hover, "Show LSP symbol info" },
 		-- ['<C-k>'] = { lsp.buf.signature_help, "Show LSP function signature" },
 		['[d]'] = { diagnostic.goto_prev, "Goto previous diagnostics" },
 		[']d'] = { diagnostic.goto_next, "Goto next diagnostics" },
@@ -303,6 +316,31 @@ M.lsp_mappings = function(bufnr)
 			['l'] = { function()
 				print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 			end, "List all workspaces" }
+		},
+	}, { prefix = "<leader>", mode = "n", buffer = bufnr, noremap = true, silent = true })
+end
+
+M.crates_mappings = function(bufnr)
+	local wk = require("which-key")
+	local crates = require("crates")
+	wk.register({
+		['c'] = {
+			name = "Crates",
+			['t'] = { crates.toggle, "Toggle" },
+			['r'] = { crates.reload, "Reload" },
+			['v'] = { crates.show_versions_popup, "Versions" },
+			['f'] = { crates.show_features_popup, "Features" },
+			['d'] = { crates.show_dependencies_popup, "Dependencies" },
+			['u'] = { crates.update_crate, "Update crate" },
+			['a'] = { crates.update_all_crates, "Update all crates" },
+			['U'] = { crates.upgrade_crate, "Upgrade crate" },
+			['A'] = { crates.upgrade_all_creates, "Upgrade all crates" },
+			['e'] = { crates.expand_plain_crate_to_inline_table, "Expand to table" },
+			['E'] = { crates.extract_crate_into_table, "Extract into table" },
+			['H'] = { crates.open_homepage, "Homepage" },
+			['R'] = { crates.open_repository, "Repository" },
+			['D'] = { crates.open_documentation, "Documentation" },
+			['C'] = { crates.open_crates_io, "Crates.io" },
 		},
 	}, { prefix = "<leader>", mode = "n", buffer = bufnr, noremap = true, silent = true })
 end
