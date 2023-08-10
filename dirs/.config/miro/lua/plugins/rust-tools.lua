@@ -4,27 +4,12 @@ return {
 	lazy = false,
 	dependencies = {
 		"neovim/nvim-lspconfig",
+		"mfussenegger/nvim-dap",
 	},
 	config = function()
 		local rt = require("rust-tools")
-		local mr = require("mason-registry")
-		local code = mr.get_package("codelldb"):get_install_path()
-		local utils = require("core.utils")
-		local adapter = nil
-		if utils.is_mac then
-			print(string.format("mac: %s", code))
-			adapter = require("rust-tools.dap").get_codelldb_adapter(
-				code .. "/extension/adapter/codelldb",
-				code .. "/extension/lldb/lib/liblldb.dylib"
-			)
-		else
-			print(string.format("linux: %s", code))
-			adapter = require("rust-tools.dap").get_codelldb_adapter(
-				code .. "/extension/adapter/codelldb",
-				code .. "/extension/lldb/lib/liblldb.so"
-			)
-		end
-		-- print(string.format("code: %s", code))
+		local cdp = require("configs.conf_dap_rust")
+
 		local opts = {
 			tools = {
 				hover_actions = {
@@ -32,7 +17,7 @@ return {
 				},
 			},
 			dap = {
-				adapter = adapter
+				adapter = cdp.get_codelldb_adapter()
 			},
 			server = {
 				on_attach = function(_, bufnr)
@@ -43,6 +28,7 @@ return {
 				end
 			},
 			settings = {
+				-- moved over from mason-lspconfig to avoid conflicts
 				['rust-analyzer'] = {
 					cargo = {
 						allFeatures = true,

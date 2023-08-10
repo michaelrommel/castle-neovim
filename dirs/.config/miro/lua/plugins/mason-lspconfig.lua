@@ -79,6 +79,7 @@ return {
 					}
 				})
 			end,
+			-- moved to rust-tools, since it would conflict
 			["rust_analyzer"] = function() end
 			-- ["rust_analyzer"] = function()
 			-- 	require("lspconfig").rust_analyzer.setup({
