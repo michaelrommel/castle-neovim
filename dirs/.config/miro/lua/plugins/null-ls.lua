@@ -32,10 +32,10 @@ return {
 					extra_args = { "--line-length", "100" }
 				}),
 				nls.builtins.formatting.ruff.with({
-					extra_args = { "--fix", "-n", "-e", "--stdin-filenam", "$FILENAME", "-" }
+					extra_args = { "--fix", "-n", "-e", "--stdin-filename", "$FILENAME", "-" }
 				}),
 				nls.builtins.diagnostics.ruff.with({
-					extra_args = { "-n", "-e", "--stdin-filenam", "$FILENAME", "-" }
+					extra_args = { "-n", "-e", "--stdin-filename", "$FILENAME", "-" }
 				}),
 				nls.builtins.formatting.rustfmt.with({
 					extra_args = { "--edition=2021" }
