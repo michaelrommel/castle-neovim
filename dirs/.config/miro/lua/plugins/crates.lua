@@ -2,7 +2,6 @@
 return {
 	"saecki/crates.nvim",
 	lazy = true,
-	event = "BufEnter Cargo.toml",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 	},
@@ -21,7 +20,5 @@ return {
 				border = "rounded",
 			},
 		})
-		local cmp = require("cmp")
-		cmp.setup.buffer({ sources = { { name = "crates" } } })
 	end
 }

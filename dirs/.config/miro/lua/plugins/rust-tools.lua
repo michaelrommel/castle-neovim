@@ -43,6 +43,11 @@ return {
 							'--all-targets', '--all-features'
 						}
 					},
+					completion = {
+						autoimport = {
+							enable = true
+						}
+					}
 				}
 			},
 		}

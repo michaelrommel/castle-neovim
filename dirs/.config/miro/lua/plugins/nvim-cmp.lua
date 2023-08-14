@@ -5,7 +5,7 @@ return {
 	"hrsh7th/nvim-cmp",
 	lazy = true,
 	version = false,
-	event = "InsertEnter",
+	event = "BufEnter",
 	dependencies = {
 		-- get suggestions from language servers
 		"hrsh7th/cmp-nvim-lsp",
@@ -78,6 +78,7 @@ return {
 						vsnip = "[vsnip]",
 						nvim_lua = "[lua]",
 						gitcommit = "[gc]",
+						crates = "[crate]",
 					})[entry.source.name]
 					return vim_item
 				end
