@@ -56,7 +56,8 @@ M.std_mappings = function()
 		-- opens up the nvim tree
 		['e'] = { function() require("nvim-tree").focus() end, "Open explorer tree" },
 		-- clears search highlighting
-		['h'] = { "<cmd>nohl<cr>", "Clear search highlights" },
+		['h'] = { "<cmd>nohl<cr>", "Hide search highlights" },
+		['H'] = { function() vim.diagnostic.hide() end, "Hide diagnostics" },
 		-- zen mode
 		['z'] = { function() require("zen-mode").toggle() end, "Toggle zen mode" },
 		-- find functions with telescope
