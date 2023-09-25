@@ -306,7 +306,6 @@ M.lsp_mappings = function(bufnr)
 		[']d'] = { diagnostic.goto_next, "Goto next diagnostics" },
 	}, { mode = "n", buffer = bufnr, noremap = true, silent = true })
 	wk.register({
-		-- opens up the nvim tree
 		['t'] = { lsp.buf.type_definition, "Goto type definition" },
 		['r'] = {
 			name = "Rename",

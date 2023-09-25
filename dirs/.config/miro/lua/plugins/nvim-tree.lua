@@ -10,10 +10,6 @@ return {
 	opts = {
 		view = {
 			width = 50,
-			mappings = {
-				list = {
-				}
-			}
 		},
 		update_cwd = true,
 		update_focused_file = {
