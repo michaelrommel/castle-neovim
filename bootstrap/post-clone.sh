@@ -64,6 +64,12 @@ if ! tree-sitter -V >/dev/null 2>&1; then
 	cargo install tree-sitter-cli
 fi
 
+if ! grep -qs python ~/.config/mise/config.toml; then
+	# install python with mise, to avoit cluttering the global installation with modules
+	mise install python@latest
+	mise use -g python@latest
+fi
+
 if ! python3 -c 'import pynvim;' >/dev/null 2>&1; then
 	echo "Installing python neovim module"
 	python3 -mpip install pynvim
