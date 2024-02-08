@@ -5,6 +5,7 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		"williamboman/mason.nvim",
+		"williamboman/mason-lspconfig.nvim",
 		-- asynchronous lib for lua
 		"nvim-lua/plenary.nvim",
 	},
