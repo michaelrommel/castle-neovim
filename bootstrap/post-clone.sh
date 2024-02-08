@@ -3,12 +3,12 @@
 source "${HOME}/.homesick/helper.sh"
 
 # if we do not set those paths here, then all installed binaries
-# that were installed using rtx, cannot be found. We want to be able
+# that were installed using mise, cannot be found. We want to be able
 # to rerun this script multiple times without errors
 source "${HOME}/.path.d/40_go.sh"
-source "${HOME}/.path.d/50_rtx.bash"
+source "${HOME}/.path.d/50_mise.bash"
 source "${HOME}/.path.d/99_default.sh"
-eval "$(rtx hook-env)"
+eval "$(mise hook-env)"
 
 echo "Installing dependency packages"
 if is_mac; then
@@ -48,9 +48,9 @@ fi
 
 if ! rustup -V >/dev/null 2>&1; then
 	echo "Installing rust"
-	rtx plugin install rust
-	rtx install rust@latest
-	rtx use -g rust@latest
+	mise plugin install rust
+	mise install rust@latest
+	mise use -g rust@latest
 	# install shell completions
 	mkdir -p "${HOME}/.rust/shell"
 	rustup completions bash >"${HOME}/.rust/shell/completion_rustup.bash"
