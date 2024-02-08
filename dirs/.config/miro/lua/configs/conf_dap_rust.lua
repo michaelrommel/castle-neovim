@@ -2,13 +2,21 @@ local M = {}
 
 local dap = require("dap")
 local mr = require("mason-registry")
-local code = mr.get_package("codelldb"):get_install_path()
 local utils = require("core.utils")
 
 -- this gets used in nvim-dap and rust-tools
 M.get_codelldb_adapter = function()
 	local command = nil
 	local args = nil
+	local code = nil
+	local ok, codelldb = pcall(mr.get_package, "codelldb")
+
+	if ok then
+		code = codelldb:get_install_path()
+	else
+		print("delaying rust dap init until mason codelldb is available")
+		return {}
+	end
 
 	if utils.is_mac then
 		-- print(string.format("mac: %s", code))
