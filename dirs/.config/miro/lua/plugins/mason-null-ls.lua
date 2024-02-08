@@ -6,7 +6,7 @@ return {
 	-- ft = { "python", "javascript", "json", "json5", "lua" },
 	dependencies = {
 		"williamboman/mason.nvim",
-		"jose-elias-alvarez/null-ls.nvim",
+		"nvimtools/none-ls.nvim",
 	},
 	opts = {
 		ensure_installed = nil,
