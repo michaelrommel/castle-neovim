@@ -54,7 +54,7 @@ M.std_mappings = function()
 	}, { mode = { "t" } })
 	wk.register({
 		-- opens up the nvim tree
-		['e'] = { function() require("nvim-tree").focus() end, "Open explorer tree" },
+		['e'] = { function() require("nvim-tree.api").focus() end, "Open explorer tree" },
 		-- clears search highlighting
 		['h'] = { "<cmd>nohl<cr>", "Hide search highlights" },
 		['H'] = { function() vim.diagnostic.hide() end, "Hide diagnostics" },
