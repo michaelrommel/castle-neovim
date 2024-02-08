@@ -14,7 +14,7 @@ M.get_codelldb_adapter = function()
 	if ok then
 		code = codelldb:get_install_path()
 	else
-		print("delaying rust dap init until mason codelldb is available")
+		vim.notify("delaying rust dap init until mason codelldb is available")
 		return {}
 	end
 
