@@ -9,6 +9,9 @@ return {
 	end,
 	config = function()
 		require("nvim-treesitter.configs").setup({
+			ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
+			-- Install parsers synchronously (only applied to `ensure_installed`)
+			sync_install = false,
 			auto_install = true,
 			highlight = {
 				enable = true,
