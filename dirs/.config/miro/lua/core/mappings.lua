@@ -12,7 +12,6 @@ M.std_mappings = function()
 	local ts = require("telescope.builtin")
 	local tsc = require("configs.conf_telescope")
 	local tc = require("todo-comments")
-	local gs = require("gitsigns")
 	local ttc = require("configs.conf_toggleterm")
 	local term = require('toggleterm.terminal').Terminal
 	local floatterm = term:new(ttc.floatterm_opts)
