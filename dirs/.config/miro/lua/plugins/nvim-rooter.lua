@@ -4,6 +4,6 @@ return {
 	lazy = true,
 	event = "BufEnter",
 	opts = {
-		rooter_patterns = { ".git", "pyproject.toml" }
+		rooter_patterns = { ".git", "pyproject.toml", "package.json" }
 	}
 }

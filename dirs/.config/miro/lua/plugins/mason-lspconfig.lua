@@ -2,8 +2,10 @@
 return {
 	"williamboman/mason-lspconfig.nvim",
 	lazy = true,
-	ft = { "sh", "bash", "zsh", "css", "graphql", "html", "json", "json5", "lua", "python", "rust", "svelte",
-		"javascript" },
+	ft = {
+		"sh", "bash", "zsh", "css", "graphql", "html", "json", "json5", "lua",
+		"python", "rust", "svelte", "javascript"
+	},
 	dependencies = {
 		"williamboman/mason.nvim",
 		-- language server configuration
@@ -14,9 +16,25 @@ return {
 	},
 	config = function()
 		require('mason-lspconfig').setup({
-			ensure_installed = { "bashls", "cssls", "graphql", "html", "lua_ls", "pyright",
-				"ruff_lsp", "rust_analyzer", "svelte", "tailwindcss", "tsserver" },
-			-- automatic_installation = true,
+			-- A list of servers to automatically install if they're not already installed. Example: { "rust_analyzer@nightly", "lua_ls" }
+			-- This setting has no relation with the `automatic_installation` setting.
+			ensure_installed = {
+				"bashls", "cssls", "graphql", "html", "lua_ls",
+				"ruff_lsp", "svelte", "tailwindcss", "tsserver"
+			},
+
+			-- Whether servers that are set up (via lspconfig) should be automatically installed if they're not already installed.
+			-- This setting has no relation with the `ensure_installed` setting.
+			-- Can either be:
+			--   - false: Servers are not automatically installed.
+			--   - true: All servers set up via lspconfig are automatically installed.
+			--   - { exclude: string[] }: All servers set up via lspconfig, except the ones provided in the list, are automatically installed.
+			--       Example: automatic_installation = { exclude = { "rust_analyzer", "solargraph" } }
+			automatic_installation = {
+				exclude = {
+					"eslint", "rust_analyzer"
+				}
+			}
 		})
 
 		-- inject default capabilities from completion module
@@ -69,16 +87,16 @@ return {
 					}
 				})
 			end,
-			["pyright"] = function()
-				require("lspconfig").pyright.setup({
-					on_attach = on_attach,
-					capabilities = capabilities,
-					filetypes = { "python" },
-					handlers = {
-						["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help),
-					}
-				})
-			end,
+			-- ["pyright"] = function()
+			-- 	require("lspconfig").pyright.setup({
+			-- 		on_attach = on_attach,
+			-- 		capabilities = capabilities,
+			-- 		filetypes = { "python" },
+			-- 		handlers = {
+			-- 			["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help),
+			-- 		}
+			-- 	})
+			-- end,
 			-- moved to rust-tools, since it would conflict
 			["rust_analyzer"] = function() end
 			-- ["rust_analyzer"] = function()
