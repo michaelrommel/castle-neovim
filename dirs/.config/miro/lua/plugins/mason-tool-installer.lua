@@ -13,8 +13,8 @@ return {
 				"eslint_d",
 				"prettier",
 				"stylua",
-				"isort",
-				"black",
+				-- "isort",
+				-- "black",
 				"ruff",
 			},
 			-- if set to true this will check each tool for updates. If updates

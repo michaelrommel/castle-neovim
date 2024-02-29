@@ -20,7 +20,7 @@ return {
 			-- This setting has no relation with the `automatic_installation` setting.
 			ensure_installed = {
 				"bashls", "cssls", "graphql", "html", "lua_ls",
-				"ruff_lsp", "svelte", "tailwindcss", "tsserver"
+				"ruff_lsp", "rust_analyzer", "svelte", "tailwindcss", "tsserver"
 			},
 
 			-- Whether servers that are set up (via lspconfig) should be automatically installed if they're not already installed.
@@ -32,10 +32,13 @@ return {
 			--       Example: automatic_installation = { exclude = { "rust_analyzer", "solargraph" } }
 			automatic_installation = {
 				exclude = {
-					"eslint", "rust_analyzer"
+					"eslint",
 				}
 			}
 		})
+
+		-- set up border around the LspInfo window
+		require("lspconfig.ui.windows").default_options.border = 'rounded'
 
 		-- inject default capabilities from completion module
 		local capabilities = require('cmp_nvim_lsp').default_capabilities()

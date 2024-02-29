@@ -305,6 +305,7 @@ M.lsp_mappings = function(bufnr)
 		[']d'] = { diagnostic.goto_next, "Goto next diagnostics" },
 	}, { mode = "n", buffer = bufnr, noremap = true, silent = true })
 	wk.register({
+		['a'] = { lsp.buf.codeAction, "Code action" },
 		['t'] = { lsp.buf.type_definition, "Goto type definition" },
 		['r'] = {
 			name = "Rename",
