@@ -7,7 +7,6 @@ local opts = {
 	opts = {
 		shadow_color = "#100808",
 		-- background = "#076678",
-		background_image = "~/.local/share/assets/silicon-background.png",
 	}
 }
 -- if an override exists, merge it in here
