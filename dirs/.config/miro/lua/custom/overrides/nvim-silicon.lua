@@ -4,6 +4,7 @@ if utils.is_wsl or utils.is_mac or utils.is_linux then
 	return {
 		font = "VictorMono NF;Noto Emoji",
 		to_clipboard = false,
+		num_separator = "\u{258f} ",
 	}
 else
 	return {}

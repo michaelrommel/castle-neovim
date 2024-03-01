@@ -1,8 +1,14 @@
 -- create code images
 local opts = {
 	"michaelrommel/nvim-silicon",
+	dir = '/Users/rommel/Software/michael/nvim-silicon',
 	lazy = true,
 	cmd = "Silicon",
+	opts = {
+		shadow_color = "#100808",
+		-- background = "#076678",
+		background_image = "~/.local/share/assets/silicon-background.png",
+	}
 }
 -- if an override exists, merge it in here
 local exists, override = pcall(require, "custom.overrides.nvim-silicon")

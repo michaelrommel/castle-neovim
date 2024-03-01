@@ -40,8 +40,12 @@ return {
 		-- set up border around the LspInfo window
 		require("lspconfig.ui.windows").default_options.border = 'rounded'
 
-		-- inject default capabilities from completion module
-		local capabilities = require('cmp_nvim_lsp').default_capabilities()
+		-- set the default client capabilities from completion module
+		--local capabilities = require('cmp_nvim_lsp').default_capabilities()
+		local capabilities = vim.tbl_deep_extend("force",
+			vim.lsp.protocol.make_client_capabilities(),
+			require('cmp_nvim_lsp').default_capabilities()
+		)
 		-- print(vim.inspect(vim.tbl_keys(capabilities)))
 
 		vim.g.cursorhold_updatetime = 500
@@ -54,6 +58,7 @@ return {
 			severity_sort = false,
 		})
 
+		-- this handler also sets the keymppings
 		local on_attach = require("configs.conf_lsp").on_attach
 
 		require("mason-lspconfig").setup_handlers {
@@ -90,6 +95,37 @@ return {
 					}
 				})
 			end,
+			["rust_analyzer"] = function()
+				require("lspconfig").rust_analyzer.setup({
+					on_attach = on_attach,
+					capabilities = capabilities,
+					filetypes = { "rust" },
+					root_dir = require("lspconfig/util").root_pattern(
+						"Cargo.toml", "rust-project.json"
+					),
+					single_file_support = true,
+					settings = {
+						['rust-analyzer'] = {
+							diagnostics = {
+								enable = true,
+							},
+							cargo = {
+								allFeatures = true,
+								buildScripts = {
+									enable = true,
+								}
+							},
+							checkOnSave = {
+								allFeatures = true,
+								-- overrideCommand = {
+								-- 	'cargo', 'clippy', '--workspace', '--message-format=json',
+								-- 	'--all-targets', '--all-features'
+								-- }
+							},
+						}
+					}
+				})
+			end,
 			-- ["pyright"] = function()
 			-- 	require("lspconfig").pyright.setup({
 			-- 		on_attach = on_attach,
@@ -97,33 +133,6 @@ return {
 			-- 		filetypes = { "python" },
 			-- 		handlers = {
 			-- 			["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help),
-			-- 		}
-			-- 	})
-			-- end,
-			-- moved to rust-tools, since it would conflict
-			["rust_analyzer"] = function() end
-			-- ["rust_analyzer"] = function()
-			-- 	require("lspconfig").rust_analyzer.setup({
-			-- 		on_attach = on_attach,
-			-- 		capabilities = capabilities,
-			-- 		filetypes = { "rust" },
-			-- 		root_dir = require("lspconfig/util").root_pattern("Cargo.toml"),
-			-- 		settings = {
-			-- 			['rust-analyzer'] = {
-			-- 				cargo = {
-			-- 					allFeatures = true,
-			-- 					buildScripts = {
-			-- 						enable = true,
-			-- 					}
-			-- 				},
-			-- 				checkOnSave = {
-			-- 					allFeatures = true,
-			-- 					overrideCommand = {
-			-- 						'cargo', 'clippy', '--workspace', '--message-format=json',
-			-- 						'--all-targets', '--all-features'
-			-- 					}
-			-- 				},
-			-- 			}
 			-- 		}
 			-- 	})
 			-- end,
