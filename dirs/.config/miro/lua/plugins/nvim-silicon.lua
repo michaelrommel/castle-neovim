@@ -5,8 +5,9 @@ local opts = {
 	lazy = true,
 	cmd = "Silicon",
 	opts = {
-		shadow_color = "#100808",
-		-- background = "#076678",
+		window_title = function()
+			return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf()), ":t")
+		end,
 	}
 }
 -- if an override exists, merge it in here

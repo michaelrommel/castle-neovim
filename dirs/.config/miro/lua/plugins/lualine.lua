@@ -4,9 +4,9 @@ return {
 	"nvim-lualine/lualine.nvim",
 	lazy = false,
 	opts = {
-		options = {
-			theme = 'gruvbox',
-		},
+		-- options = {
+		-- 	theme = 'gruvbox',
+		-- },
 		sections = {
 			lualine_y = { "progress", "selectioncount" }
 		}
@@ -14,6 +14,6 @@ return {
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
 		-- "michaelrommel/gruvbox.nvim",
-		"gruvbox.nvim"
+		-- "gruvbox.nvim"
 	}
 }
