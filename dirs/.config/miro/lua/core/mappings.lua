@@ -61,7 +61,7 @@ M.std_mappings = function()
 		['z'] = { function() require("zen-mode").toggle() end, "Toggle zen mode" },
 		-- find functions with telescope
 		['f'] = {
-			name = "Files",
+			name = "Find",
 			['f'] = { function()
 				ts.find_files({
 					find_command =
@@ -72,6 +72,7 @@ M.std_mappings = function()
 				"Find files in project" },
 			['g'] = { function() ts.live_grep() end, "Live grep" },
 			['b'] = { function() ts.buffers() end, "Find buffers" },
+			['d'] = { function() require("telescope.builtin").diagnostics() end, "Find diagnostics" },
 		},
 		['b'] = {
 			name = "Browse",

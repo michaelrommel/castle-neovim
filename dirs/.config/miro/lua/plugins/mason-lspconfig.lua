@@ -12,14 +12,15 @@ return {
 		"neovim/nvim-lspconfig",
 		"hrsh7th/nvim-cmp",
 		-- separates the update intervals of lsp from autosaved files/buffers
-		"antoinemadec/FixCursorHold.nvim"
+		"antoinemadec/FixCursorHold.nvim",
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
 	},
 	config = function()
 		require('mason-lspconfig').setup({
 			-- A list of servers to automatically install if they're not already installed. Example: { "rust_analyzer@nightly", "lua_ls" }
 			-- This setting has no relation with the `automatic_installation` setting.
 			ensure_installed = {
-				"bashls", "cssls", "graphql", "html", "lua_ls",
+				"bashls", "cssls", "graphql", "eslint", "html", "lua_ls",
 				"ruff_lsp", "rust_analyzer", "svelte", "tailwindcss", "tsserver"
 			},
 
@@ -32,7 +33,7 @@ return {
 			--       Example: automatic_installation = { exclude = { "rust_analyzer", "solargraph" } }
 			automatic_installation = {
 				exclude = {
-					"eslint",
+					-- "eslint",
 				}
 			}
 		})
@@ -75,6 +76,15 @@ return {
 					on_attach = on_attach,
 					capabilities = capabilities,
 					filetypes = { "sh", "bash", "zsh" },
+				})
+			end,
+			["eslint"] = function()
+				require("lspconfig").eslint.setup({
+					on_attach = on_attach,
+					capabilities = capabilities,
+					root_dir = require("lspconfig/util").root_pattern(
+						"package.json", "eslint.config.*"
+					),
 				})
 			end,
 			["lua_ls"] = function()

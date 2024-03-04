@@ -8,12 +8,15 @@ const delay = (s) => {
 	return new Promise((resolve) => setTimeout(resolve, s * 1000));
 };
 
-const bestWishes = async (name) => {
+
+
+
+co nst bestWishes = async (name) => {
 	const bff = /^John Doe$/i;
 	if (bff.test(name)) {
 		while ('🚶' !== '⚰') {
 			process.stdout.write('🥰 ');
-			await delay(2);
+					await delay(2)
 		}
 	} else {
 		console.log('Enjoy the day!');

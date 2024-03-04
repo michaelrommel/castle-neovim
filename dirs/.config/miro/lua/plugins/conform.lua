@@ -56,7 +56,7 @@ return {
 					}
 				}
 			},
-			notify_on_error = true
+			notify_on_error = false
 		})
 		local prettier = require("conform.formatters.prettier")
 		local default_args_func = prettier.args
@@ -70,7 +70,7 @@ return {
 				return newargs
 			else
 				local newargs = vim.list_extend(default_args,
-					{ "--use-tabs", "--semi", "--single-quote", "--trailing-comma none" }
+					{ "--use-tabs", "--semi", "--single-quote", "--trailing-comma", "none" }
 				)
 				return newargs
 			end

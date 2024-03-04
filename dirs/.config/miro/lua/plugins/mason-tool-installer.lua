@@ -4,13 +4,13 @@ return {
 	dependencies = {
 		"williamboman/mason.nvim",
 	},
-	lazy = false,
+	lazy = true,
 	config = function()
 		require("mason-tool-installer").setup({
 			ensure_installed = {
 				"shfmt",
 				"shellcheck",
-				"eslint_d",
+				"eslint",
 				"prettier",
 				"stylua",
 				-- "isort",
