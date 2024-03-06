@@ -1,10 +1,13 @@
 -- create code images
 local opts = {
 	"michaelrommel/nvim-silicon",
-	dir = '/Users/rommel/Software/michael/nvim-silicon',
+	-- dir = '/Users/rommel/Software/michael/nvim-silicon',
 	lazy = true,
 	cmd = "Silicon",
 	opts = {
+		debug = true,
+		num_separator = "\u{258f} ",
+		shadow_color = "#000000",
 		window_title = function()
 			return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf()), ":t")
 		end,
