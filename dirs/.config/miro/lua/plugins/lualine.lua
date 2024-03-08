@@ -17,7 +17,7 @@ return {
 					end
 				end
 			end
-			return "-" .. table.concat(clients_list, ",")
+			return #clients_list > 0 and "-" .. table.concat(clients_list, ",") .. " " or " "
 		end
 
 		require("lualine").setup({
@@ -36,7 +36,7 @@ return {
 					'encoding',
 					{ 'fileformat', padding = { left = 0, right = 1 } },
 					{ 'filetype',   padding = { left = 1, right = 0 }, separator = "", },
-					{ active_lsps,  padding = { left = 0, right = 1 } },
+					{ active_lsps,  padding = { left = 0, right = 0 } },
 				},
 				lualine_y = { "searchcount", "selectioncount", "progress" }
 			}

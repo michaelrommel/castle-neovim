@@ -21,7 +21,7 @@ return {
 			-- A list of servers to automatically install if they're not already installed. Example: { "rust_analyzer@nightly", "lua_ls" }
 			-- This setting has no relation with the `automatic_installation` setting.
 			ensure_installed = {
-				"bashls", "cssls", "graphql", "eslint", "html", "lua_ls",
+				"bashls", "cssls", "graphql", "eslint", "html", "jsonls", "lua_ls",
 				"ruff_lsp", "rust_analyzer", "svelte", "tailwindcss", "tsserver"
 			},
 
@@ -72,6 +72,38 @@ return {
 				})
 			end,
 			-- Next, you can provide a dedicated handler for specific servers.
+			["jsonls"] = function()
+				require("lspconfig").jsonls.setup({
+					on_attach = on_attach,
+					capabilities = capabilities,
+					filetypes = { "json", "jsonc", "json5" },
+					init_options = {
+						provideFormatter = false,
+					},
+					handlers = {
+						["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
+							-- jsonls doesn't really support json5
+							-- remove some annoying errors
+							if string.match(result.uri, "%.json5$", -6) and result.diagnostics ~= nil then
+								local idx = 1
+								while idx <= #result.diagnostics do
+									print("in json5: " .. result.diagnostics[idx].code)
+									if result.diagnostics[idx].code == 519 then
+										-- "Trailing comma""
+										table.remove(result.diagnostics, idx)
+									elseif result.diagnostics[idx].code == 521 then
+										-- "Comments are not permitted in JSON."
+										table.remove(result.diagnostics, idx)
+									else
+										idx = idx + 1
+									end
+								end
+							end
+							vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
+						end,
+					},
+				})
+			end,
 			["bashls"] = function()
 				require("lspconfig").bashls.setup({
 					on_attach = on_attach,
