@@ -13,11 +13,11 @@ return {
 				local filetypes = client.config.filetypes or {}
 				for _, ft in pairs(filetypes) do
 					if ft == filetype and client.attached_buffers[bufnr] then
-						table.insert(clients_list, client.name)
+						table.insert(clients_list, string.sub(client.name, 1, 3))
 					end
 				end
 			end
-			return table.concat(clients_list, ", ")
+			return "-" .. table.concat(clients_list, ",")
 		end
 
 		require("lualine").setup({
@@ -33,8 +33,10 @@ return {
 					'diagnostics'
 				},
 				lualine_x = {
-					{ active_lsps, color = { fg = "#458588" } },
-					'encoding', 'fileformat', 'filetype'
+					'encoding',
+					{ 'fileformat', padding = { left = 0, right = 1 } },
+					{ 'filetype',   padding = { left = 1, right = 0 }, separator = "", },
+					{ active_lsps,  padding = { left = 0, right = 1 } },
 				},
 				lualine_y = { "searchcount", "selectioncount", "progress" }
 			}
