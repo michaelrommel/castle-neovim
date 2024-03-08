@@ -14,6 +14,7 @@ return {
 		-- separates the update intervals of lsp from autosaved files/buffers
 		"antoinemadec/FixCursorHold.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		"aznhe21/actions-preview.nvim",
 	},
 	config = function()
 		require('mason-lspconfig').setup({

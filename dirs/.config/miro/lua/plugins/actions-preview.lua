@@ -1,7 +1,7 @@
 -- displays a preview of possible code actions
 return {
 	"aznhe21/actions-preview.nvim",
-	lazy = false,
+	lazy = true,
 	config = function()
 		require("actions-preview").setup {
 			telescope = {
