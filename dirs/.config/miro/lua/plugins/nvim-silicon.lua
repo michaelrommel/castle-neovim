@@ -11,7 +11,9 @@ local opts = {
 		window_title = function()
 			return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf()), ":t")
 		end,
-		shadow_color = "#000000",
+		line_offset = function(args)
+			return args.line1
+		end,
 	}
 }
 -- if an override exists, merge it in here
