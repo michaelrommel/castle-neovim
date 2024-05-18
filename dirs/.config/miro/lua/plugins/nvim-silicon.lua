@@ -19,16 +19,24 @@ local opts = {
 		wslclipboard = "auto",
 		wslclipboardcopy = "delete",
 		to_clipboard = true,
+		-- output = function()
+		-- 	return "./" .. os.date("!%Y-%m-%dT%H-%M-%SZ") .. "_code.png"
+		-- end
+		output = nil,
 		-- language = function()
+		-- 	local lang = nil
 		-- 	if vim.bo.filetype == nil or vim.bo.filetype == "" then
-		-- 		local lang = vim.fn.input("Language: ", "js")
-		-- 		if lang and lang ~= "" then
-		-- 			return lang
-		-- 		else
-		-- 			return "md"
-		-- 		end
+		-- 		-- if we cannot determine the filetype supply no default argument
+		-- 		lang = vim.fn.input("Language: ", "")
 		-- 	else
-		-- 		return vim.bo.filetype
+		-- 		-- otherwise have the filetype as preset for most cases
+		-- 		lang = vim.fn.input("Language: ", vim.bo.filetype)
+		-- 	end
+		-- 	if lang and lang ~= "" then
+		-- 		return lang
+		-- 	else
+		-- 		-- dialog was cancelled
+		-- 		return "md"
 		-- 	end
 		-- end,
 	}

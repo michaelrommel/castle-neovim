@@ -48,7 +48,7 @@ M.std_mappings = function()
 	wk.register({
 		['s'] = {
 			name = "Silicon",
-			['s'] = { function() require("silicon").shoot() end, "Create code screenshot" },
+			['s'] = { function() require("nvim-silicon").shoot() end, "Create code screenshot" },
 			['f'] = { function() require("nvim-silicon").file() end, "Put code screenshot to file" },
 			['c'] = { function() require("nvim-silicon").clip() end, "Put code screenshot to clipboard" },
 		},
@@ -63,7 +63,7 @@ M.std_mappings = function()
 		['z'] = { function() require("zen-mode").toggle() end, "Toggle zen mode" },
 		['s'] = {
 			name = "Silicon",
-			['s'] = { function() require("silicon").shoot() end, "Create code screenshot" },
+			['s'] = { function() require("nvim-silicon").shoot() end, "Create code screenshot" },
 			['f'] = { function() require("nvim-silicon").file() end, "Put code screenshot to file" },
 			['c'] = { function() require("nvim-silicon").clip() end, "Put code screenshot to clipboard" },
 		},
