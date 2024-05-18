@@ -14,10 +14,6 @@ M.std_mappings = function()
 	local tc = require("todo-comments")
 	local ttc = require("configs.conf_toggleterm")
 	local term = require('toggleterm.terminal').Terminal
-	local floatterm = term:new(ttc.floatterm_opts)
-	local function floatterm_toggle()
-		floatterm:toggle()
-	end
 	local miniterm = term:new(ttc.miniterm_opts)
 	local function miniterm_toggle()
 		miniterm:toggle()
@@ -40,17 +36,23 @@ M.std_mappings = function()
 		['<C-k>'] = { "<C-w>k", "Upper split" },
 		['<C-l>'] = { "<C-w>l", "Right split" },
 		['<C-c>'] = { function() miniterm_toggle() end, "Toggle Mini Terminal" },
-		['<C-S-c>'] = { function() floatterm_toggle() end, "Toggle Terminal" },
 		['[t'] = { function() tc.jump_prev() end, "Previous TODO" },
 		[']t'] = { function() tc.jump_next() end, "Next TODO" },
 		['gb'] = { "<plug>(comment_toggle_blockwise)", "Comment toggle blockwise" },
 		['gc'] = { "<plug>(comment_toggle_linewise)", "Comment toggle linewise" },
 	}, { mode = { "n" } })
 	wk.register({
-		-- jumps to splits
 		['<C-q>'] = { "<C-\\><C-n>", "Put terminal in Normal mode" },
 		-- ['kj'] = { "<C-\\><C-n>", "Put terminal in Normal mode" },
 	}, { mode = { "t" } })
+	wk.register({
+		['s'] = {
+			name = "Silicon",
+			['s'] = { function() require("silicon").shoot() end, "Create code screenshot" },
+			['f'] = { function() require("nvim-silicon").file() end, "Put code screenshot to file" },
+			['c'] = { function() require("nvim-silicon").clip() end, "Put code screenshot to clipboard" },
+		},
+	}, { prefix = "<leader>", mode = "v" })
 	wk.register({
 		-- opens up the nvim tree
 		['e'] = { function() require("nvim-tree.api").tree.focus() end, "Open explorer tree" },
@@ -59,6 +61,12 @@ M.std_mappings = function()
 		['H'] = { function() vim.diagnostic.hide() end, "Hide diagnostics" },
 		-- zen mode
 		['z'] = { function() require("zen-mode").toggle() end, "Toggle zen mode" },
+		['s'] = {
+			name = "Silicon",
+			['s'] = { function() require("silicon").shoot() end, "Create code screenshot" },
+			['f'] = { function() require("nvim-silicon").file() end, "Put code screenshot to file" },
+			['c'] = { function() require("nvim-silicon").clip() end, "Put code screenshot to clipboard" },
+		},
 		-- find functions with telescope
 		['f'] = {
 			name = "Find",

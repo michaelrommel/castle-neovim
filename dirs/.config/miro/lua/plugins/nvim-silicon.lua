@@ -3,6 +3,8 @@ local opts = {
 	"michaelrommel/nvim-silicon",
 	-- dir = '/Users/rommel/Software/michael/nvim-silicon',
 	lazy = true,
+	branch = "wslclipimg",
+	main = "nvim-silicon",
 	cmd = "Silicon",
 	opts = {
 		debug = true,
@@ -14,6 +16,21 @@ local opts = {
 		line_offset = function(args)
 			return args.line1
 		end,
+		wslclipboard = "auto",
+		wslclipboardcopy = "delete",
+		to_clipboard = true,
+		-- language = function()
+		-- 	if vim.bo.filetype == nil or vim.bo.filetype == "" then
+		-- 		local lang = vim.fn.input("Language: ", "js")
+		-- 		if lang and lang ~= "" then
+		-- 			return lang
+		-- 		else
+		-- 			return "md"
+		-- 		end
+		-- 	else
+		-- 		return vim.bo.filetype
+		-- 	end
+		-- end,
 	}
 }
 -- if an override exists, merge it in here

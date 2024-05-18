@@ -2,7 +2,7 @@
 local utils = require("core.utils")
 if utils.is_wsl or utils.is_linux then
 	return {
-		to_clipboard = false,
+		-- to_clipboard = false,
 		background_image = "/home/rommel/.local/share/assets/silicon-background.png",
 	}
 else
