@@ -8,6 +8,7 @@ local opts = {
 	cmd = "Silicon",
 	opts = {
 		debug = true,
+		font = "VictorMono NF=34;Noto Emoji",
 		num_separator = "\u{258f} ",
 		shadow_color = "#000000",
 		window_title = function()
@@ -19,10 +20,10 @@ local opts = {
 		wslclipboard = "auto",
 		wslclipboardcopy = "delete",
 		to_clipboard = true,
+		output = nil,
 		-- output = function()
 		-- 	return "./" .. os.date("!%Y-%m-%dT%H-%M-%SZ") .. "_code.png"
 		-- end
-		output = nil,
 		-- language = function()
 		-- 	local lang = nil
 		-- 	if vim.bo.filetype == nil or vim.bo.filetype == "" then
