@@ -1,7 +1,7 @@
 tags
 .DS_Store
 dirs/.config/miro/lazy-lock.json
-dirs/.config/miro/lua/custom/overrides
+dirs/.config/miro/lua/custom/overrides/
 dirs/software/examples/nodejs/node_modules
 dirs/software/examples/nodejs/package-lock.json
 dirs/software/examples/rust/target
