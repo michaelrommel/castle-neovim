@@ -43,13 +43,9 @@ return {
 			filtered_items = {
 				visible = false, -- when true, they will just be displayed differently than normal items
 				hide_dotfiles = false,
-				hide_gitignored = false,
+				hide_gitignored = true,
 			},
 			use_libuv_file_watcher = true,
-			-- bind_to_cwd = true, -- true creates a 2-way binding between vim's cwd and neo-tree's root
-			-- cwd_target = {
-			-- 	sidebar = "current", -- sidebar is when position = left or right
-			-- },
 			follow_current_file = {
 				enabled = true,
 			},
