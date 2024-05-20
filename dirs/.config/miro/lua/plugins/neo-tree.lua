@@ -11,7 +11,11 @@ return {
 		"s1n7ax/nvim-window-picker",
 	},
 	opts = {
+		popup_border_style = "rounded",
 		default_component_configs = {
+			name = {
+				trailing_slash = true,
+			},
 			git_status = {
 				symbols = {
 					-- Change type
@@ -31,17 +35,29 @@ return {
 		window = {
 			width = 50,
 			mappings = {
-				["<c-x>"] = "open_split",
-				["<c-v>"] = "open_vsplit",
+				["<c-x>"] = "split_with_window_picker",
+				["<c-v>"] = "vsplit_with_window_picker",
 			}
 		},
 		filesystem = {
 			filtered_items = {
 				visible = false, -- when true, they will just be displayed differently than normal items
 				hide_dotfiles = false,
-				hide_gitignored = true,
+				hide_gitignored = false,
 			},
-			use_libuv_file_watcher = true
-		}
-	}
+			use_libuv_file_watcher = true,
+			-- bind_to_cwd = true, -- true creates a 2-way binding between vim's cwd and neo-tree's root
+			-- cwd_target = {
+			-- 	sidebar = "current", -- sidebar is when position = left or right
+			-- },
+			follow_current_file = {
+				enabled = true,
+			},
+		},
+		buffers = {
+			follow_current_file = {
+				enabled = true,
+			},
+		},
+	},
 }

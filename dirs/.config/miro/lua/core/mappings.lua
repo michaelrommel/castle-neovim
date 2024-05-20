@@ -12,11 +12,33 @@ M.std_mappings = function()
 	local ts = require("telescope.builtin")
 	local tsc = require("configs.conf_telescope")
 	local tc = require("todo-comments")
+
 	local ttc = require("configs.conf_toggleterm")
 	local term = require('toggleterm.terminal').Terminal
 	local miniterm = term:new(ttc.miniterm_opts)
 	local function miniterm_toggle()
 		miniterm:toggle()
+	end
+	local function neotree_toggle()
+		local reveal_file = vim.fn.expand('%:p')
+		if (reveal_file == '') then
+			reveal_file = vim.fn.getcwd()
+		else
+			local f = io.open(reveal_file, "r")
+			if (f) then
+				f.close(f)
+			else
+				reveal_file = vim.fn.getcwd()
+			end
+		end
+		print("neo-tree: reveal_file is " .. reveal_file)
+		require('neo-tree.command').execute({
+			action = "focus", -- OPTIONAL, this is the default value
+			source = "filesystem", -- OPTIONAL, this is the default value
+			position = "left", -- OPTIONAL, this is the default value
+			reveal_file = reveal_file, -- path to file or folder to reveal
+			reveal_force_cwd = true, -- change cwd without asking if needed
+		})
 	end
 
 	wk.register({
@@ -55,7 +77,7 @@ M.std_mappings = function()
 	}, { prefix = "<leader>", mode = "v" })
 	wk.register({
 		-- opens up the tree
-		['e'] = { "<cmd>Neotree action=focus reveal<cr>", "Open explorer tree" },
+		['e'] = { neotree_toggle, "Open explorer tree" },
 		-- ['e'] = { function() require("nvim-tree.api").tree.focus() end, "Open explorer tree" },
 		-- clears search highlighting
 		['h'] = { "<cmd>nohl<cr>", "Hide search highlights" },
