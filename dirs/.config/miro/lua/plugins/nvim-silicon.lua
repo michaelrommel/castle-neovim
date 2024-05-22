@@ -24,22 +24,22 @@ local opts = {
 		-- output = function()
 		-- 	return "./" .. os.date("!%Y-%m-%dT%H-%M-%SZ") .. "_code.png"
 		-- end
-		-- language = function()
-		-- 	local lang = nil
-		-- 	if vim.bo.filetype == nil or vim.bo.filetype == "" then
-		-- 		-- if we cannot determine the filetype supply no default argument
-		-- 		lang = vim.fn.input("Language: ", "")
-		-- 	else
-		-- 		-- otherwise have the filetype as preset for most cases
-		-- 		lang = vim.fn.input("Language: ", vim.bo.filetype)
-		-- 	end
-		-- 	if lang and lang ~= "" then
-		-- 		return lang
-		-- 	else
-		-- 		-- dialog was cancelled
-		-- 		return "md"
-		-- 	end
-		-- end,
+		language = function()
+			local lang = nil
+			if vim.bo.filetype == nil or vim.bo.filetype == "" then
+				-- if we cannot determine the filetype supply no default argument
+				lang = vim.fn.input("Language: ", "")
+			else
+				-- otherwise have the filetype as preset for most cases
+				lang = vim.fn.input("Language: ", vim.bo.filetype)
+			end
+			if lang and lang ~= "" then
+				return lang
+			else
+				-- dialog was cancelled
+				return "md"
+			end
+		end,
 	}
 }
 -- if an override exists, merge it in here
