@@ -12,6 +12,7 @@ M.std_mappings = function()
 	local ts = require("telescope.builtin")
 	local tsc = require("configs.conf_telescope")
 	local tc = require("todo-comments")
+	local flsh = require("flash")
 
 	local ttc = require("configs.conf_toggleterm")
 	local term = require('toggleterm.terminal').Terminal
@@ -63,6 +64,11 @@ M.std_mappings = function()
 		['gb'] = { "<plug>(comment_toggle_blockwise)", "Comment toggle blockwise" },
 		['gc'] = { "<plug>(comment_toggle_linewise)", "Comment toggle linewise" },
 	}, { mode = { "n" } })
+	wk.register({
+		['s'] = { function() flsh.jump() end, "Search with flash" },
+		['S'] = { function() flsh.treesitter() end, "Search Treesitter tags with flash" },
+		-- x = visual mode only, o = operator pending mode
+	}, { mode = { "n", "x" } })
 	wk.register({
 		['<C-q>'] = { "<C-\\><C-n>", "Put terminal in Normal mode" },
 		-- ['kj'] = { "<C-\\><C-n>", "Put terminal in Normal mode" },
