@@ -3,7 +3,7 @@ local opts = {
 	"michaelrommel/nvim-silicon",
 	-- dir = '/Users/rommel/Software/michael/nvim-silicon',
 	lazy = true,
-	branch = "wslclipimg",
+	-- branch = "wslclipimg",
 	main = "nvim-silicon",
 	cmd = "Silicon",
 	opts = {
