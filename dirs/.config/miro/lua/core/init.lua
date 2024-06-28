@@ -15,7 +15,7 @@ g.mapleader = " "
 if is_wsl then
 	g.clipboard = {
 		name = 'WSLClipboard',
-		copy = { ["+"] = { "/bin/true" }, ["*"] = { "/bin/true" } },
+		copy = { ["+"] = { "clip.exe" }, ["*"] = { "clip.exe" } },
 		paste = { ["+"] = { "nvim_paste.sh" }, ["*"] = { "nvim_paste.sh" } },
 		cache_enabled = true
 	}

@@ -46,7 +46,7 @@ return {
 					prepend_args = { "-i", "4" }
 				},
 				rustfmt = {
-					prepend_args = { "--edition=2021" }
+					prepend_args = { "--edition", "2021" }
 				},
 				prettier = {
 					ft_parsers = {

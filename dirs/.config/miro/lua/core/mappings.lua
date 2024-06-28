@@ -65,7 +65,7 @@ M.std_mappings = function()
 		['gc'] = { "<plug>(comment_toggle_linewise)", "Comment toggle linewise" },
 	}, { mode = { "n" } })
 	wk.register({
-		['s'] = { function() flsh.jump() end, "Search with flash" },
+		-- ['/'] = { function() flsh.jump() end, "Search with flash" },
 		['S'] = { function() flsh.treesitter() end, "Search Treesitter tags with flash" },
 		-- x = visual mode only, o = operator pending mode
 	}, { mode = { "n", "x" } })
@@ -308,6 +308,7 @@ M.dap_mappings = function()
 			end, "Scopes" },
 			-- show the whole debugging ui: mnemonic debug ui
 			u = { function()
+				-- require('dapui').setup()
 				require('dapui').toggle()
 			end, "UI display" },
 		}
