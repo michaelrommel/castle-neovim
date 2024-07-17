@@ -22,7 +22,8 @@ return {
 			-- This setting has no relation with the `automatic_installation` setting.
 			ensure_installed = {
 				"bashls", "cssls", "graphql", "eslint", "html", "jsonls", "lua_ls",
-				"ruff_lsp", "rust_analyzer", "svelte", "tailwindcss", "tsserver"
+				"ruff_lsp", "rust_analyzer", "svelte", "tailwindcss", "tsserver",
+				"jedi_language_server",
 			},
 
 			-- Whether servers that are set up (via lspconfig) should be automatically installed if they're not already installed.
