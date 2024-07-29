@@ -42,135 +42,130 @@ M.std_mappings = function()
 		})
 	end
 
-	wk.register({
-		['gb'] = { "<plug>(comment_toggle_blockwise_visual)", "Comment toggle blockwise (visual)" },
-		['gc'] = { "<plug>(comment_toggle_linewise_visual)", "Comment toggle linewise (visual)" },
-	}, { mode = { "v" } })
-	wk.register({
+	wk.add({
+		{ "gb", "<plug>(comment_toggle_blockwise_visual)", desc = "Comment toggle blockwise (visual)", mode = "v" },
+		{ "gc", "<plug>(comment_toggle_linewise_visual)",  desc = "Comment toggle linewise (visual)",  mode = "v" },
+	})
+	wk.add({
 		-- moves the cursor left and right in insert mode
-		['<C-h>'] = { "<Left>", "Move 1 char left" },
-		['<C-l>'] = { "<Right>", "Move 1 char right" },
+		{ "<C-h>", "<Left>",  desc = "Move 1 char left",  mode = { "i", "v" } },
+		{ "<C-l>", "<Right>", desc = "Move 1 char right", mode = { "i", "v" } },
 		-- ['kj'] = { "<Esc>", "Alternative Escape" },
-	}, { mode = { "i", "v" } })
-	wk.register({
+	})
+	wk.add({
+		{ "<C-c>", function() miniterm_toggle() end,   desc = "Toggle Mini Terminal" },
 		-- jumps to splits
-		['<C-h>'] = { "<C-w>h", "Left split" },
-		['<C-j>'] = { "<C-w>j", "Lower split" },
-		['<C-k>'] = { "<C-w>k", "Upper split" },
-		['<C-l>'] = { "<C-w>l", "Right split" },
-		['<C-c>'] = { function() miniterm_toggle() end, "Toggle Mini Terminal" },
-		['[t'] = { function() tc.jump_prev() end, "Previous TODO" },
-		[']t'] = { function() tc.jump_next() end, "Next TODO" },
-		['gb'] = { "<plug>(comment_toggle_blockwise)", "Comment toggle blockwise" },
-		['gc'] = { "<plug>(comment_toggle_linewise)", "Comment toggle linewise" },
-	}, { mode = { "n" } })
-	wk.register({
+		{ "<C-h>", "<C-w>h",                           desc = "Left split" },
+		{ "<C-j>", "<C-w>j",                           desc = "Lower split" },
+		{ "<C-k>", "<C-w>k",                           desc = "Upper split" },
+		{ "<C-l>", "<C-w>l",                           desc = "Right split" },
+		{ "[t",    function() tc.jump_prev() end,      desc = "Previous TODO" },
+		{ "]t",    function() tc.jump_next() end,      desc = "Next TODO" },
+		{ "gb",    "<plug>(comment_toggle_blockwise)", desc = "Comment toggle blockwise" },
+		{ "gc",    "<plug>(comment_toggle_linewise)",  desc = "Comment toggle linewise" },
+	})
+	wk.add({
 		-- ['/'] = { function() flsh.jump() end, "Search with flash" },
-		['S'] = { function() flsh.treesitter() end, "Search Treesitter tags with flash" },
 		-- x = visual mode only, o = operator pending mode
-	}, { mode = { "n", "x" } })
-	wk.register({
-		['<C-q>'] = { "<C-\\><C-n>", "Put terminal in Normal mode" },
+		{ "S", function() flsh.treesitter() end, desc = "Search Treesitter tags with flash", mode = { "n", "x" } },
+	})
+	wk.add({
 		-- ['kj'] = { "<C-\\><C-n>", "Put terminal in Normal mode" },
-	}, { mode = { "t" } })
-	wk.register({
-		['s'] = {
-			name = "Silicon",
-			['s'] = { function() require("nvim-silicon").shoot() end, "Create code screenshot" },
-			['f'] = { function() require("nvim-silicon").file() end, "Put code screenshot to file" },
-			['c'] = { function() require("nvim-silicon").clip() end, "Put code screenshot to clipboard" },
-		},
-	}, { prefix = "<leader>", mode = "v" })
-	wk.register({
+		{ "<C-q>", "<C-\\><C-n>", desc = "Put terminal in Normal mode", mode = "t" },
+	})
+	wk.add({
+		mode = { "v" },
+		{ "<leader>s",  group = "Silicon" },
+		{ "<leader>sc", function() require("nvim-silicon").shoot() end, desc = "Put code screenshot to clipboard" },
+		{ "<leader>sf", function() require("nvim-silicon").file() end,  desc = "Put code screenshot to file" },
+		{ "<leader>ss", function() require("nvim-silicon").clip() end,  desc = "Create code screenshot" },
+	})
+	wk.add({
+		{ "<leader>H",  function() vim.diagnostic.hide() end,                      desc = "Hide diagnostics" },
+		{ "<leader>b",  group = "Browse" },
+		{ "<leader>bd", function() require("browse.devdocs").search() end,         desc = "DevDocs" },
+		{ "<leader>bg", function() require("browse.devdocs").input_search() end,   desc = "Google" },
 		-- opens up the tree
-		['e'] = { neotree_toggle, "Open explorer tree" },
+		{ "<leader>e",  neotree_toggle,                                            desc = "Open explorer tree" },
 		-- ['e'] = { function() require("nvim-tree.api").tree.focus() end, "Open explorer tree" },
-		-- clears search highlighting
-		['h'] = { "<cmd>nohl<cr>", "Hide search highlights" },
-		['H'] = { function() vim.diagnostic.hide() end, "Hide diagnostics" },
-		-- zen mode
-		['z'] = { function() require("zen-mode").toggle() end, "Toggle zen mode" },
-		['s'] = {
-			name = "Silicon",
-			['s'] = { function() require("nvim-silicon").shoot() end, "Create code screenshot" },
-			['f'] = { function() require("nvim-silicon").file() end, "Put code screenshot to file" },
-			['c'] = { function() require("nvim-silicon").clip() end, "Put code screenshot to clipboard" },
-		},
 		-- find functions with telescope
-		['f'] = {
-			name = "Find",
-			['f'] = { function()
+		{ "<leader>f",  group = "Find" },
+		{ "<leader>fb", function() ts.buffers() end,                               desc = "Find buffers" },
+		{ "<leader>fd", function() require("telescope.builtin").diagnostics() end, desc = "Find diagnostics" },
+		{
+			"<leader>ff",
+			function()
 				ts.find_files({
 					find_command =
 					{ 'rg', '--files', '--hidden', '-g', '!.git' }
 				})
-			end, "Find files" },
-			['p'] = { function() tsc.find_files_from_project_git_root() end,
-				"Find files in project" },
-			['g'] = { function() ts.live_grep() end, "Live grep" },
-			['b'] = { function() ts.buffers() end, "Find buffers" },
-			['d'] = { function() require("telescope.builtin").diagnostics() end, "Find diagnostics" },
+			end,
+			desc = "Find files"
 		},
-		['b'] = {
-			name = "Browse",
-			['d'] = { function() require("browse.devdocs").search() end,
-				"DevDocs" },
-			['g'] = { function() require("browse.devdocs").input_search() end,
-				"Google" },
-		},
-	}, { prefix = "<leader>", mode = "n" })
+		{ "<leader>fg", function() ts.live_grep() end,                         desc = "Live grep" },
+		{ "<leader>fp", function() tsc.find_files_from_project_git_root() end, desc = "Find files in project" },
+		-- clears search highlighting
+		{ "<leader>h",  "<cmd>nohl<cr>",                                       desc = "Hide search highlights" },
+		{ "<leader>s",  group = "Silicon" },
+		{ "<leader>sc", function() require("nvim-silicon").shoot() end,        desc = "Put code screenshot to clipboard" },
+		{ "<leader>sf", function() require("nvim-silicon").file() end,         desc = "Put code screenshot to file" },
+		{ "<leader>ss", function() require("nvim-silicon").clip() end,         desc = "Create code screenshot" },
+		-- zen mode
+		{ "<leader>z",  function() require("zen-mode").toggle() end,           desc = "Toggle zen mode" },
+	})
 end
 
 M.gitsigns_mappings = function(bufnr)
 	local wk = require("which-key")
 	local gs = package.loaded.gitsigns
-	wk.register({
-		['g'] = {
-			name = "Git",
-			['s'] = { gs.stage_hunk, "Stage hunk" },
-			['r'] = { gs.reset_hunk, "Reset hunk" },
-			['u'] = { gs.undo_stage_hunk, "Undo stage hunk" },
-			['S'] = { gs.stage_buffer, "Stage buffer" },
-			['R'] = { gs.reset_buffer, "Reset buffer" },
-			['p'] = { gs.preview_hunk, "Preview hunk" },
-			['b'] = { function() gs.blame_line({ full = true }) end, "Blame line" },
-			['d'] = { gs.diffthis, "Diff" },
-			['D'] = { function() gs.diffthis('~') end, "Diff ~ (last commit)" },
-			['t'] = {
-				name = "Toggles",
-				['b'] = { gs.toggle_current_line_blame, "Toggle blame" },
-				['d'] = { gs.toggle_deleted, "Toggle deleted" },
-			},
-		},
-	}, { prefix = "<leader>", buffer = bufnr, mode = "n" })
-	wk.register({
-		['g'] = {
-			name = "Git",
-			['s'] = { function() gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, "Stage hunk" },
-			['r'] = { function() gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, "Reset hunk" },
-		},
-	}, { prefix = "<leader>", buffer = bufnr, mode = "v" })
-	wk.register({
-		['[h'] = {
+	wk.add({
+		{ "<leader>g",   buffer = 3,                                    group = "Git" },
+		{ "<leader>gD",  function() gs.diffthis('~') end,               buffer = 3,       desc = "Diff ~ (last commit)" },
+		{ "<leader>gR",  gs.reset_buffer,                               buffer = 3,       desc = "Reset buffer" },
+		{ "<leader>gS",  gs.stage_buffer,                               buffer = 3,       desc = "Stage buffer" },
+		{ "<leader>gb",  function() gs.blame_line({ full = true }) end, buffer = 3,       desc = "Blame line" },
+		{ "<leader>gd",  gs.diffthis,                                   buffer = 3,       desc = "Diff" },
+		{ "<leader>gp",  gs.preview_hunk,                               buffer = 3,       desc = "Preview hunk" },
+		{ "<leader>gr",  gs.reset_hunk,                                 buffer = 3,       desc = "Reset hunk" },
+		{ "<leader>gs",  gs.stage_hunk,                                 buffer = 3,       desc = "Stage hunk" },
+		{ "<leader>gt",  buffer = 3,                                    group = "Toggles" },
+		{ "<leader>gtb", gs.toggle_current_line_blame,                  buffer = 3,       desc = "Toggle blame" },
+		{ "<leader>gtd", gs.toggle_deleted,                             buffer = 3,       desc = "Toggle deleted" },
+		{ "<leader>gu",  gs.undo_stage_hunk,                            buffer = 3,       desc = "Undo stage hunk" },
+	})
+	wk.add({
+		{ "<leader>gr", function() gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, buffer = 3, desc = "Reset hunk", mode = "v" },
+		{ "<leader>gs", function() gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, buffer = 3, desc = "Stage hunk", mode = "v" },
+	})
+	wk.add({
+		{
+			"[h",
 			function()
 				if vim.wo.diff then return '[c' end
 				vim.schedule(function() gs.prev_hunk() end)
 				return '<Ignore>'
 			end,
-			"Previous hunk"
+			buffer = 3,
+			desc = "Previous hunk",
+			expr = true,
+			replace_keycodes = false
 		},
-		[']h'] = {
+		{
+			"]h",
 			function()
 				if vim.wo.diff then return ']c' end
 				vim.schedule(function() gs.next_hunk() end)
 				return '<Ignore>'
 			end,
-			"Next hunk"
+			buffer = 3,
+			desc = "Next hunk",
+			expr = true,
+			replace_keycodes = false
 		},
-	}, { mode = "n", buffer = bufnr, expr = true })
-	wk.register({
-		['ih'] = { ":<C-U>Gitsigns select_hunk<cr>" },
-	}, { mode = { "o", "x" }, buffer = bufnr })
+	})
+	wk.add({
+		{ "ih", buffer = 3, desc = ":<C-U>Gitsigns select_hunk<cr>", mode = { "o", "x" } },
+	})
 end
 
 M.cmp_mappings = function()
@@ -253,66 +248,77 @@ M.dap_mappings = function()
 	})
 	local wk = require("which-key")
 	-- standard key mappings
-	wk.register({
+	wk.add({
 		-- step into the function: mnemonic debug in
-		['<C-i>'] = { function() require('dap').step_into() end, "Step Into" },
+		{ "<C-S-i>", function() require('dap').step_into() end, desc = "Step Into" },
 		-- step over the function: mnemonic debug jump over
-		['<C-j>'] = { function() require('dap').step_over() end, "Step Over" },
-		-- step out to the calling function: mnemonic out
-		['<C-o>'] = { function() require('dap').step_out() end, "Step Out" },
+		{ "<C-S-j>", function() require('dap').step_over() end, desc = "Step Over" },
 		-- terminate debugging session: mnemonic kill debugger
-		['<C-k>'] = { function() require('dap').terminate() end, "Kill/Stop Debugger" },
+		{ "<C-S-k>", function() require('dap').terminate() end, desc = "Kill/Stop Debugger" },
+		-- step out to the calling function: mnemonic out
+		{ "<C-S-o>", function() require('dap').step_out() end,  desc = "Step Out" },
 		-- start debugging: mnemonic play
-		['<C-p>'] = { function() require('dap').continue() end, "Play" },
+		{ "<C-S-p>", function() require('dap').continue() end,  desc = "Play" },
 	})
 	-- document the leader key mappings
-	wk.register({
-		d = {
-			name = "Debug",
-			-- start the debugging: mnemonic debug run
-			r = {
-				function()
-					if vim.bo.filetype == "javascript" then
-						local addr = fn.input("Host: ", "127.0.0.1")
-						require("dap").configurations["javascript"][2]["address"] = addr
-					end
-					require('dap').continue()
-				end, "Run"
-			},
-			-- continue the debugging: mnemonic debug continue
-			c = { function() require('dap').continue() end, "Continue" },
-			-- toggle a breakpoint: mnemonic debug breakpoint
-			b = { function() require('dap').toggle_breakpoint() end, "Breakpoint Toggle" },
-			B = { function() require('dap').set_breakpoint() end, "Breakpoint Set" },
-			-- set a log point: mnemonic debug logmessage
-			l = { function() require('dap').set_breakpoint(nil, nil, fn.input('Log point message: ')) end,
-				"Log Point" },
-			-- open a repl, switch to insert mode for a prompt: mnemonic debug open
-			o = { function() require('dap').repl.open() end, "Open REPL" },
-			-- re-start the debug session: mnemonic debug again
-			a = { function() require('dap').run_last() end, "Again the last run" },
-			-- show variable or function status inspector: mnemonic debug hover
-			h = { function() require('dap.ui.widgets').hover() end, "Hover" },
-			-- show variables or function status inspector in a separate split: mnemonic debug preview
-			p = { function() require('dap.ui.widgets').preview() end, "Preview" },
-			-- show the stack frames, can navigate around the call stack: mnemonic debug frames
-			f = { function()
+	wk.add({
+		{ "<Leader>d",  group = "Debug" },
+		-- set a breakpoint
+		{ "<Leader>dB", function() require('dap').set_breakpoint() end,    desc = "Breakpoint Set" },
+		-- re-start the debug session: mnemonic debug again
+		{ "<Leader>da", function() require('dap').run_last() end,          desc = "Again the last run" },
+		-- toggle a breakpoint: mnemonic debug breakpoint
+		{ "<Leader>db", function() require('dap').toggle_breakpoint() end, desc = "Breakpoint Toggle" },
+		-- continue the debugging: mnemonic debug continue
+		{ "<Leader>dc", function() require('dap').continue() end,          desc = "Continue" },
+		-- show the stack frames, can navigate around the call stack: mnemonic debug frames
+		{
+			"<Leader>df",
+			function()
 				local widgets = require('dap.ui.widgets')
 				widgets.centered_float(widgets.frames)
-			end, "Frames on the stack"
-			},
-			-- show the variables in all scopes: mnemonic debug scopes
-			s = { function()
+			end,
+			desc = "Frames on the stack"
+		},
+		-- show variable or function status inspector: mnemonic debug hover
+		{ "<Leader>dh", function() require('dap.ui.widgets').hover() end,                                        desc = "Hover" },
+		-- set a log point: mnemonic debug logmessage
+		{ "<Leader>dl", function() require('dap').set_breakpoint(nil, nil, fn.input('Log point message: ')) end, desc = "Log Point" },
+		-- open a repl, switch to insert mode for a prompt: mnemonic debug open
+		{ "<Leader>do", function() require('dap').repl.open() end,                                               desc = "Open REPL" },
+		-- show variables or function status inspector in a separate split: mnemonic debug preview
+		{ "<Leader>dp", function() require('dap.ui.widgets').preview() end,                                      desc = "Preview" },
+		-- start the debugging: mnemonic debug run
+		{
+			"<Leader>dr",
+			function()
+				if vim.bo.filetype == "javascript" then
+					local addr = fn.input("Host: ", "127.0.0.1")
+					require("dap").configurations["javascript"][2]["address"] = addr
+				end
+				require('dap').continue()
+			end,
+			desc = "Run"
+		},
+		-- show the variables in all scopes: mnemonic debug scopes
+		{
+			"<Leader>ds",
+			function()
 				local widgets = require('dap.ui.widgets')
 				widgets.centered_float(widgets.scopes)
-			end, "Scopes" },
-			-- show the whole debugging ui: mnemonic debug ui
-			u = { function()
+			end,
+			desc = "Scopes"
+		},
+		-- show the whole debugging ui: mnemonic debug ui
+		{
+			"<Leader>du",
+			function()
 				-- require('dapui').setup()
 				require('dapui').toggle()
-			end, "UI display" },
-		}
-	}, { prefix = "<Leader>" })
+			end,
+			desc = "UI display"
+		},
+	})
 end
 
 M.lsp_mappings = function(bufnr)
@@ -329,38 +335,38 @@ M.lsp_mappings = function(bufnr)
 			vim.lsp.buf.hover()
 		end
 	end
-	wk.register({
-		['g'] = {
-			name = "Goto",
-			['D'] = { lsp.buf.declaration, "Goto declaration" },
-			['d'] = { lsp.buf.definition, "Goto definition" },
-			['i'] = { lsp.buf.implementation, "Goto implementation" },
-			['r'] = { lsp.buf.references, "Goto references" },
-		},
-		['K'] = { show_documentation, "Show LSP symbol info / docs" },
+	wk.add({
 		-- ['K'] = { lsp.buf.hover, "Show LSP symbol info" },
-		-- ['<C-k>'] = { lsp.buf.signature_help, "Show LSP function signature" },
-		['[d]'] = { diagnostic.goto_prev, "Goto previous diagnostics" },
-		[']d'] = { diagnostic.goto_next, "Goto next diagnostics" },
-	}, { mode = "n", buffer = bufnr, noremap = true, silent = true })
-	wk.register({
-		['a'] = { function() require('actions-preview').code_actions() end, "Code actions preview" },
-		['t'] = { lsp.buf.type_definition, "Goto type definition" },
-		['r'] = {
-			name = "Rename",
-			['n'] = { lsp.buf.rename, "Rename all symbol occurrences" },
-		},
-		['D'] = { diagnostic.open_float, "Open diagnostics float" },
-		['q'] = { diagnostic.setloclist, "Open quickfix window" },
-		['w'] = {
-			name = "Workspace",
-			['a'] = { lsp.buf.add_workspace_folder, "Add workspace folder" },
-			['r'] = { lsp.buf.remove_workspace_folder, "Remove workspace folder" },
-			['l'] = { function()
+		{ "K",   show_documentation,     buffer = 3,     desc = "Show LSP symbol info / docs", remap = false },
+		{ "[d]", diagnostic.goto_prev,   buffer = 3,     desc = "Goto previous diagnostics",   remap = false },
+		{ "]d",  diagnostic.goto_next,   buffer = 3,     desc = "Goto next diagnostics",       remap = false },
+		{ "g",   buffer = 3,             group = "Goto", remap = false },
+		{ "gD",  lsp.buf.declaration,    buffer = 3,     desc = "Goto declaration",            remap = false },
+		{ "gd",  lsp.buf.definition,     buffer = 3,     desc = "Goto definition",             remap = false },
+		{ "gi",  lsp.buf.implementation, buffer = 3,     desc = "Goto implementation",         remap = false },
+		{ "gr",  lsp.buf.references,     buffer = 3,     desc = "Goto references",             remap = false },
+		{ "gs",  lsp.buf.signature_help, buffer = 3,     desc = "Show LSP function signature", remap = false },
+	})
+	wk.add({
+		{ "<leader>D",  diagnostic.open_float,                                    buffer = 3,          desc = "Open diagnostics float",        remap = false },
+		{ "<leader>a",  function() require('actions-preview').code_actions() end, buffer = 3,          desc = "Code actions preview",          remap = false },
+		{ "<leader>q",  diagnostic.setloclist,                                    buffer = 3,          desc = "Open quickfix window",          remap = false },
+		{ "<leader>r",  buffer = 3,                                               group = "Rename",    remap = false },
+		{ "<leader>rn", lsp.buf.rename,                                           buffer = 3,          desc = "Rename all symbol occurrences", remap = false },
+		{ "<leader>t",  lsp.buf.type_definition,                                  buffer = 3,          desc = "Goto type definition",          remap = false },
+		{ "<leader>w",  buffer = 3,                                               group = "Workspace", remap = false },
+		{ "<leader>wa", lsp.buf.add_workspace_folder,                             buffer = 3,          desc = "Add workspace folder",          remap = false },
+		{
+			"<leader>wl",
+			function()
 				print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-			end, "List all workspaces" }
+			end,
+			buffer = 3,
+			desc = "List all workspaces",
+			remap = false
 		},
-	}, { prefix = "<leader>", mode = "n", buffer = bufnr, noremap = true, silent = true })
+		{ "<leader>wr", lsp.buf.remove_workspace_folder, buffer = 3, desc = "Remove workspace folder", remap = false },
+	})
 end
 
 M.crates_mappings = function(bufnr)
