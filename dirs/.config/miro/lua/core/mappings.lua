@@ -119,23 +119,23 @@ M.gitsigns_mappings = function(bufnr)
 	local wk = require("which-key")
 	local gs = package.loaded.gitsigns
 	wk.add({
-		{ "<leader>g",   buffer = 3,                                    group = "Git" },
-		{ "<leader>gD",  function() gs.diffthis('~') end,               buffer = 3,       desc = "Diff ~ (last commit)" },
-		{ "<leader>gR",  gs.reset_buffer,                               buffer = 3,       desc = "Reset buffer" },
-		{ "<leader>gS",  gs.stage_buffer,                               buffer = 3,       desc = "Stage buffer" },
-		{ "<leader>gb",  function() gs.blame_line({ full = true }) end, buffer = 3,       desc = "Blame line" },
-		{ "<leader>gd",  gs.diffthis,                                   buffer = 3,       desc = "Diff" },
-		{ "<leader>gp",  gs.preview_hunk,                               buffer = 3,       desc = "Preview hunk" },
-		{ "<leader>gr",  gs.reset_hunk,                                 buffer = 3,       desc = "Reset hunk" },
-		{ "<leader>gs",  gs.stage_hunk,                                 buffer = 3,       desc = "Stage hunk" },
-		{ "<leader>gt",  buffer = 3,                                    group = "Toggles" },
-		{ "<leader>gtb", gs.toggle_current_line_blame,                  buffer = 3,       desc = "Toggle blame" },
-		{ "<leader>gtd", gs.toggle_deleted,                             buffer = 3,       desc = "Toggle deleted" },
-		{ "<leader>gu",  gs.undo_stage_hunk,                            buffer = 3,       desc = "Undo stage hunk" },
+		{ "<leader>g",   group = "Git" },
+		{ "<leader>gD",  function() gs.diffthis('~') end,               buffer = bufnr, desc = "Diff ~ (last commit)" },
+		{ "<leader>gR",  gs.reset_buffer,                               buffer = bufnr, desc = "Reset buffer" },
+		{ "<leader>gS",  gs.stage_buffer,                               buffer = bufnr, desc = "Stage buffer" },
+		{ "<leader>gb",  function() gs.blame_line({ full = true }) end, buffer = bufnr, desc = "Blame line" },
+		{ "<leader>gd",  gs.diffthis,                                   buffer = bufnr, desc = "Diff" },
+		{ "<leader>gp",  gs.preview_hunk,                               buffer = bufnr, desc = "Preview hunk" },
+		{ "<leader>gr",  gs.reset_hunk,                                 buffer = bufnr, desc = "Reset hunk" },
+		{ "<leader>gs",  gs.stage_hunk,                                 buffer = bufnr, desc = "Stage hunk" },
+		{ "<leader>gt",  group = "Toggles" },
+		{ "<leader>gtb", gs.toggle_current_line_blame,                  buffer = bufnr, desc = "Toggle blame" },
+		{ "<leader>gtd", gs.toggle_deleted,                             buffer = bufnr, desc = "Toggle deleted" },
+		{ "<leader>gu",  gs.undo_stage_hunk,                            buffer = bufnr, desc = "Undo stage hunk" },
 	})
 	wk.add({
-		{ "<leader>gr", function() gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, buffer = 3, desc = "Reset hunk", mode = "v" },
-		{ "<leader>gs", function() gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, buffer = 3, desc = "Stage hunk", mode = "v" },
+		{ "<leader>gr", function() gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, buffer = bufnr, desc = "Reset hunk", mode = "v" },
+		{ "<leader>gs", function() gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, buffer = bufnr, desc = "Stage hunk", mode = "v" },
 	})
 	wk.add({
 		{
@@ -145,7 +145,7 @@ M.gitsigns_mappings = function(bufnr)
 				vim.schedule(function() gs.prev_hunk() end)
 				return '<Ignore>'
 			end,
-			buffer = 3,
+			buffer = bufnr,
 			desc = "Previous hunk",
 			expr = true,
 			replace_keycodes = false
@@ -157,14 +157,14 @@ M.gitsigns_mappings = function(bufnr)
 				vim.schedule(function() gs.next_hunk() end)
 				return '<Ignore>'
 			end,
-			buffer = 3,
+			buffer = bufnr,
 			desc = "Next hunk",
 			expr = true,
 			replace_keycodes = false
 		},
 	})
 	wk.add({
-		{ "ih", buffer = 3, desc = ":<C-U>Gitsigns select_hunk<cr>", mode = { "o", "x" } },
+		{ "ih", buffer = bufnr, desc = ":<C-U>Gitsigns select_hunk<cr>", mode = { "o", "x" } },
 	})
 end
 
@@ -337,35 +337,35 @@ M.lsp_mappings = function(bufnr)
 	end
 	wk.add({
 		-- ['K'] = { lsp.buf.hover, "Show LSP symbol info" },
-		{ "K",   show_documentation,     buffer = 3,     desc = "Show LSP symbol info / docs", remap = false },
-		{ "[d]", diagnostic.goto_prev,   buffer = 3,     desc = "Goto previous diagnostics",   remap = false },
-		{ "]d",  diagnostic.goto_next,   buffer = 3,     desc = "Goto next diagnostics",       remap = false },
-		{ "g",   buffer = 3,             group = "Goto", remap = false },
-		{ "gD",  lsp.buf.declaration,    buffer = 3,     desc = "Goto declaration",            remap = false },
-		{ "gd",  lsp.buf.definition,     buffer = 3,     desc = "Goto definition",             remap = false },
-		{ "gi",  lsp.buf.implementation, buffer = 3,     desc = "Goto implementation",         remap = false },
-		{ "gr",  lsp.buf.references,     buffer = 3,     desc = "Goto references",             remap = false },
-		{ "gs",  lsp.buf.signature_help, buffer = 3,     desc = "Show LSP function signature", remap = false },
+		{ "K",   show_documentation,     buffer = bufnr, desc = "Show LSP symbol info / docs", remap = false },
+		{ "[d]", diagnostic.goto_prev,   buffer = bufnr, desc = "Goto previous diagnostics",   remap = false },
+		{ "]d",  diagnostic.goto_next,   buffer = bufnr, desc = "Goto next diagnostics",       remap = false },
+		{ "g",   group = "Goto",         remap = false },
+		{ "gD",  lsp.buf.declaration,    buffer = bufnr, desc = "Goto declaration",            remap = false },
+		{ "gd",  lsp.buf.definition,     buffer = bufnr, desc = "Goto definition",             remap = false },
+		{ "gi",  lsp.buf.implementation, buffer = bufnr, desc = "Goto implementation",         remap = false },
+		{ "gr",  lsp.buf.references,     buffer = bufnr, desc = "Goto references",             remap = false },
+		{ "gs",  lsp.buf.signature_help, buffer = bufnr, desc = "Show LSP function signature", remap = false },
 	})
 	wk.add({
-		{ "<leader>D",  diagnostic.open_float,                                    buffer = 3,          desc = "Open diagnostics float",        remap = false },
-		{ "<leader>a",  function() require('actions-preview').code_actions() end, buffer = 3,          desc = "Code actions preview",          remap = false },
-		{ "<leader>q",  diagnostic.setloclist,                                    buffer = 3,          desc = "Open quickfix window",          remap = false },
-		{ "<leader>r",  buffer = 3,                                               group = "Rename",    remap = false },
-		{ "<leader>rn", lsp.buf.rename,                                           buffer = 3,          desc = "Rename all symbol occurrences", remap = false },
-		{ "<leader>t",  lsp.buf.type_definition,                                  buffer = 3,          desc = "Goto type definition",          remap = false },
-		{ "<leader>w",  buffer = 3,                                               group = "Workspace", remap = false },
-		{ "<leader>wa", lsp.buf.add_workspace_folder,                             buffer = 3,          desc = "Add workspace folder",          remap = false },
+		{ "<leader>D",  diagnostic.open_float,                                    buffer = bufnr, desc = "Open diagnostics float",        remap = false },
+		{ "<leader>a",  function() require('actions-preview').code_actions() end, buffer = bufnr, desc = "Code actions preview",          remap = false },
+		{ "<leader>q",  diagnostic.setloclist,                                    buffer = bufnr, desc = "Open quickfix window",          remap = false },
+		{ "<leader>r",  group = "Rename",                                         remap = false },
+		{ "<leader>rn", lsp.buf.rename,                                           buffer = bufnr, desc = "Rename all symbol occurrences", remap = false },
+		{ "<leader>t",  lsp.buf.type_definition,                                  buffer = bufnr, desc = "Goto type definition",          remap = false },
+		{ "<leader>w",  group = "Workspace",                                      remap = false },
+		{ "<leader>wa", lsp.buf.add_workspace_folder,                             buffer = bufnr, desc = "Add workspace folder",          remap = false },
 		{
 			"<leader>wl",
 			function()
 				print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 			end,
-			buffer = 3,
+			buffer = bufnr,
 			desc = "List all workspaces",
 			remap = false
 		},
-		{ "<leader>wr", lsp.buf.remove_workspace_folder, buffer = 3, desc = "Remove workspace folder", remap = false },
+		{ "<leader>wr", lsp.buf.remove_workspace_folder, buffer = bufnr, desc = "Remove workspace folder", remap = false },
 	})
 end
 
