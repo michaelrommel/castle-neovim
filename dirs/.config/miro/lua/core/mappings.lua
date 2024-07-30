@@ -372,26 +372,24 @@ end
 M.crates_mappings = function(bufnr)
 	local wk = require("which-key")
 	local crates = require("crates")
-	wk.register({
-		['c'] = {
-			name = "Crates",
-			['t'] = { crates.toggle, "Toggle" },
-			['r'] = { crates.reload, "Reload" },
-			['v'] = { crates.show_versions_popup, "Versions" },
-			['f'] = { crates.show_features_popup, "Features" },
-			['d'] = { crates.show_dependencies_popup, "Dependencies" },
-			['u'] = { crates.update_crate, "Update crate" },
-			['a'] = { crates.update_all_crates, "Update all crates" },
-			['U'] = { crates.upgrade_crate, "Upgrade crate" },
-			['A'] = { crates.upgrade_all_creates, "Upgrade all crates" },
-			['e'] = { crates.expand_plain_crate_to_inline_table, "Expand to table" },
-			['E'] = { crates.extract_crate_into_table, "Extract into table" },
-			['H'] = { crates.open_homepage, "Homepage" },
-			['R'] = { crates.open_repository, "Repository" },
-			['D'] = { crates.open_documentation, "Documentation" },
-			['C'] = { crates.open_crates_io, "Crates.io" },
-		},
-	}, { prefix = "<leader>", mode = "n", buffer = bufnr, noremap = true, silent = true })
+	wk.add({
+		{ "<leader>c",  group = "Crates",                          remap = false },
+		{ "<leader>cA", crates.upgrade_all_crates,                 buffer = bufnr, desc = "Crates.io",          remap = false },
+		{ "<leader>cC", crates.open_crates_io,                     buffer = bufnr, desc = "Crates.io",          remap = false },
+		{ "<leader>cD", crates.open_documentation,                 buffer = bufnr, desc = "Documentation",      remap = false },
+		{ "<leader>cE", crates.extract_crate_into_table,           buffer = bufnr, desc = "Extract into table", remap = false },
+		{ "<leader>cH", crates.open_homepage,                      buffer = bufnr, desc = "Homepage",           remap = false },
+		{ "<leader>cR", crates.open_repository,                    buffer = bufnr, desc = "Repository",         remap = false },
+		{ "<leader>cU", crates.upgrade_crate,                      buffer = bufnr, desc = "Upgrade crate",      remap = false },
+		{ "<leader>ca", crates.update_all_crates,                  buffer = bufnr, desc = "Update all crates",  remap = false },
+		{ "<leader>cd", crates.show_dependencies_popup,            buffer = bufnr, desc = "Dependencies",       remap = false },
+		{ "<leader>ce", crates.expand_plain_crate_to_inline_table, buffer = bufnr, desc = "Expand to table",    remap = false },
+		{ "<leader>cf", crates.show_features_popup,                buffer = bufnr, desc = "Features",           remap = false },
+		{ "<leader>cr", crates.reload,                             buffer = bufnr, desc = "Reload",             remap = false },
+		{ "<leader>ct", crates.toggle,                             buffer = bufnr, desc = "Toggle",             remap = false },
+		{ "<leader>cu", crates.update_crate,                       buffer = bufnr, desc = "Update crate",       remap = false },
+		{ "<leader>cv", crates.show_versions_popup,                buffer = bufnr, desc = "Versions",           remap = false },
+	})
 end
 
 return M
