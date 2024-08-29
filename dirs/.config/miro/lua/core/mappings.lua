@@ -76,9 +76,9 @@ M.std_mappings = function()
 	wk.add({
 		mode = { "v" },
 		{ "<leader>s",  group = "Silicon" },
-		{ "<leader>sc", function() require("nvim-silicon").shoot() end, desc = "Put code screenshot to clipboard" },
-		{ "<leader>sf", function() require("nvim-silicon").file() end,  desc = "Put code screenshot to file" },
-		{ "<leader>ss", function() require("nvim-silicon").clip() end,  desc = "Create code screenshot" },
+		{ "<leader>sc", function() require("nvim-silicon").clip() end,  desc = "Copy code screenshot to clipboard" },
+		{ "<leader>sf", function() require("nvim-silicon").file() end,  desc = "Save code screenshot as file" },
+		{ "<leader>ss", function() require("nvim-silicon").shoot() end, desc = "Create code screenshot" },
 	})
 	wk.add({
 		{ "<leader>H",  function() vim.diagnostic.hide() end,                      desc = "Hide diagnostics" },
