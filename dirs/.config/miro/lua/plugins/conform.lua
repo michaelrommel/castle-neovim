@@ -30,7 +30,7 @@ return {
 		local cfm = require("conform")
 		cfm.setup({
 			formatters_by_ft = {
-				python = { "ruff" },
+				python = { "ruff_format" },
 				javascript = { "prettier" },
 				json = { "prettier" },
 				json5 = { "prettier" },
@@ -56,6 +56,7 @@ return {
 					}
 				}
 			},
+			log_level = vim.log.levels.DEBUG,
 			notify_on_error = false
 		})
 		local prettier = require("conform.formatters.prettier")

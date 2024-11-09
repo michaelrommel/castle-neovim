@@ -11,7 +11,7 @@ return {
 		local cm = require("core.mappings")
 		crates.setup({
 			on_attach = cm.crates_mappings,
-			open_programs = { "open", "wslview", "xdg-open" },
+			-- open_programs = { "open", "wslview", "xdg-open" },
 			popup = {
 				autofocus = true,
 				border = "rounded",

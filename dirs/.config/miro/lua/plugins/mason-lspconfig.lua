@@ -105,6 +105,23 @@ return {
 					},
 				})
 			end,
+			["cssls"] = function()
+				require("lspconfig").cssls.setup({
+					on_attach = on_attach,
+					capabilities = capabilities,
+					filetypes = { "css" },
+					settings = {
+						css = {
+							-- customData = {
+							-- 	"/tmp/tailwind.css-data.json"
+							-- },
+							lint = {
+								unknownAtRules = 'ignore'
+							}
+						}
+					}
+				})
+			end,
 			["bashls"] = function()
 				require("lspconfig").bashls.setup({
 					on_attach = on_attach,
