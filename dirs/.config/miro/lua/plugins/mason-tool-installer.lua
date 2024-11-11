@@ -7,14 +7,15 @@ return {
 	lazy = true,
 	config = function()
 		require("mason-tool-installer").setup({
+			-- language servers go into mason-lspconfig
 			ensure_installed = {
-				"shfmt",
-				"shellcheck",
-				"eslint",
+				"codelldb",
+				"debugpy",
+				"js-debug-adapter",
 				"prettier",
+				"shellcheck",
+				"shfmt",
 				"stylua",
-				-- "isort",
-				-- "black",
 				"ruff",
 			},
 			-- if set to true this will check each tool for updates. If updates

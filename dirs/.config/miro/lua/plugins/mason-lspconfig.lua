@@ -18,12 +18,13 @@ return {
 	},
 	config = function()
 		require('mason-lspconfig').setup({
-			-- A list of servers to automatically install if they're not already installed. Example: { "rust_analyzer@nightly", "lua_ls" }
+			-- A list of servers to automatically install if they're not already installed.
+			-- Example: { "rust_analyzer@nightly", "lua_ls" }
 			-- This setting has no relation with the `automatic_installation` setting.
+			-- The Mason tools, which are not language servers should be in mason-tool-installer
 			ensure_installed = {
-				"bashls", "cssls", "graphql", "eslint", "html", "jsonls", "lua_ls",
-				"ruff_lsp", "rust_analyzer", "svelte", "tailwindcss", "tsserver",
-				"jedi_language_server",
+				"bashls", "cssls", "eslint", "graphql", "html", "jedi_language_server", "jsonls", "lua_ls",
+				"rust_analyzer", "svelte", "tailwindcss", "ts_ls",
 			},
 
 			-- Whether servers that are set up (via lspconfig) should be automatically installed if they're not already installed.
@@ -67,6 +68,7 @@ return {
 		require("mason-lspconfig").setup_handlers {
 			-- The first entry (without a key) will be the default handler
 			function(server_name)
+				-- print("server_name is " .. server_name)
 				require("lspconfig")[server_name].setup({
 					on_attach = on_attach,
 					capabilities = capabilities,
