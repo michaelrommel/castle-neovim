@@ -24,7 +24,7 @@ return {
 			-- The Mason tools, which are not language servers should be in mason-tool-installer
 			ensure_installed = {
 				"bashls", "cssls", "eslint", "graphql", "html", "jedi_language_server", "jsonls", "lua_ls",
-				"rust_analyzer", "svelte", "tailwindcss", "ts_ls",
+				"rust_analyzer", "svelte", "tailwindcss", "tsserver",
 			},
 
 			-- Whether servers that are set up (via lspconfig) should be automatically installed if they're not already installed.

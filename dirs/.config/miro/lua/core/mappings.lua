@@ -9,7 +9,8 @@ end
 
 M.std_mappings = function()
 	local wk = require("which-key")
-	local ts = require("telescope.builtin")
+	local ts = require("telescope")
+	local tb = require("telescope.builtin")
 	local tsc = require("configs.conf_telescope")
 	local tc = require("todo-comments")
 	local flsh = require("flash")
@@ -84,28 +85,29 @@ M.std_mappings = function()
 		{ "<leader>ss", function() require("nvim-silicon").shoot() end, desc = "Create code screenshot" },
 	})
 	wk.add({
-		{ "<leader>H",  function() vim.diagnostic.hide() end,                      desc = "Hide diagnostics" },
+		{ "<leader>H",  function() vim.diagnostic.hide() end,                    desc = "Hide diagnostics" },
 		{ "<leader>b",  group = "Browse" },
-		{ "<leader>bd", function() require("browse.devdocs").search() end,         desc = "DevDocs" },
-		{ "<leader>bg", function() require("browse.devdocs").input_search() end,   desc = "Google" },
+		{ "<leader>bd", function() require("browse.devdocs").search() end,       desc = "DevDocs" },
+		{ "<leader>bg", function() require("browse.devdocs").input_search() end, desc = "Google" },
 		-- opens up the tree
-		{ "<leader>e",  neotree_toggle,                                            desc = "Open explorer tree" },
+		{ "<leader>e",  neotree_toggle,                                          desc = "Open explorer tree" },
 		-- ['e'] = { function() require("nvim-tree.api").tree.focus() end, "Open explorer tree" },
 		-- find functions with telescope
 		{ "<leader>f",  group = "Find" },
-		{ "<leader>fb", function() ts.buffers() end,                               desc = "Find buffers" },
-		{ "<leader>fd", function() require("telescope.builtin").diagnostics() end, desc = "Find diagnostics" },
+		{ "<leader>fb", function() tb.buffers() end,                             desc = "Find buffers" },
+		{ "<leader>fc", function() ts.extensions.neoclip.default() end,          desc = "Find clipboard" },
+		{ "<leader>fd", function() tb.diagnostics() end,                         desc = "Find diagnostics" },
 		{
 			"<leader>ff",
 			function()
-				ts.find_files({
+				tb.find_files({
 					find_command =
 					{ 'rg', '--files', '--hidden', '-g', '!.git' }
 				})
 			end,
 			desc = "Find files"
 		},
-		{ "<leader>fg", function() ts.live_grep() end,                         desc = "Live grep" },
+		{ "<leader>fg", function() tb.live_grep() end,                         desc = "Live grep" },
 		{ "<leader>fp", function() tsc.find_files_from_project_git_root() end, desc = "Find files in project" },
 		-- clears search highlighting
 		{ "<leader>h",  "<cmd>nohl<cr>",                                       desc = "Hide search highlights" },

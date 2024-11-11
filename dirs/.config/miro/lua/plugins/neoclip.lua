@@ -1,7 +1,7 @@
 -- yank manager
 return {
 	"AckslD/nvim-neoclip.lua",
-	lazy = true,
+	lazy = false,
 	event = { "BufWritePre" },
 	dependencies = {
 		{ 'kkharji/sqlite.lua', module = 'sqlite' },
@@ -10,6 +10,9 @@ return {
 		-- {'ibhagwan/fzf-lua'},
 	},
 	config = function()
-		require('neoclip').setup()
+		require('neoclip').setup({
+			enable_persistent_history = true,
+			continuous_sync = true,
+		})
 	end,
 }
