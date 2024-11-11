@@ -42,6 +42,9 @@ M.std_mappings = function()
 		})
 	end
 
+	-- remove the default mapping of Y to y$
+	vim.keymap.del('n', 'Y')
+
 	wk.add({
 		{ "gb", "<plug>(comment_toggle_blockwise_visual)", desc = "Comment toggle blockwise (visual)", mode = "v" },
 		{ "gc", "<plug>(comment_toggle_linewise_visual)",  desc = "Comment toggle linewise (visual)",  mode = "v" },

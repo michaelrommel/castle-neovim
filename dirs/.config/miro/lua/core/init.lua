@@ -54,7 +54,7 @@ opt.splitright = true
 opt.splitbelow = true
 opt.equalalways = true
 -- use the clipboard instead of registers
-opt.clipboard = "unnamedplus"
+-- opt.clipboard = "unnamedplus"
 -- keep an undo file
 opt.undofile = true
 -- show autocomplete menu always, do not autoselect an entry and
