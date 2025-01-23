@@ -76,19 +76,16 @@ return {
 			end,
 			-- Next, you can provide a dedicated handler for specific servers.
 			["jsonls"] = function()
-				-- print("installing jsonls handler")
 				-- vim.lsp.set_log_level("debug")
 				-- a reference to the default handler
-				local on_diagnostic = vim.lsp.handlers["textDocument/diagnostic"]
 				local function _suppress(diag, codes)
 					-- jsonls doesn't really support json5
 					-- remove some annoying errors
-					local idx = 1
-					while idx <= #diag do
-						for _, v in pairs(codes) do
-							print(v)
+					for _, v in pairs(codes) do
+						local idx = 1
+						while diag ~= nil and idx <= #diag do
 							if diag[idx].code == v then
-								print("suppressing: " .. diag[idx].code)
+								print("suppressing: " .. idx .. "-" .. diag[idx].code)
 								table.remove(diag, idx)
 							else
 								idx = idx + 1
@@ -120,9 +117,9 @@ return {
 								":e"
 							)
 							if string.match(extension, "json5$", -6) and result.items ~= nil then
-								_suppress(result.items, { 519, 521 })
+								_suppress(result.items, { 521, 519 })
 							end
-							on_diagnostic(err, result, ctx, config)
+							vim.lsp.diagnostic.on_diagnostic(err, result, ctx, config)
 						end,
 					},
 				})
