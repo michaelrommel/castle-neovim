@@ -76,6 +76,26 @@ return {
 			end,
 			-- Next, you can provide a dedicated handler for specific servers.
 			["jsonls"] = function()
+				-- print("installing jsonls handler")
+				-- vim.lsp.set_log_level("debug")
+				-- a reference to the default handler
+				local on_diagnostic = vim.lsp.handlers["textDocument/diagnostic"]
+				local function _suppress(diag, codes)
+					-- jsonls doesn't really support json5
+					-- remove some annoying errors
+					local idx = 1
+					while idx <= #diag do
+						for _, v in pairs(codes) do
+							print(v)
+							if diag[idx].code == v then
+								print("suppressing: " .. diag[idx].code)
+								table.remove(diag, idx)
+							else
+								idx = idx + 1
+							end
+						end
+					end
+				end
 				require("lspconfig").jsonls.setup({
 					on_attach = on_attach,
 					capabilities = capabilities,
@@ -84,25 +104,25 @@ return {
 						provideFormatter = false,
 					},
 					handlers = {
+						-- this is the push handling of diagnostics information
 						["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
-							-- jsonls doesn't really support json5
-							-- remove some annoying errors
 							if string.match(result.uri, "%.json5$", -6) and result.diagnostics ~= nil then
-								local idx = 1
-								while idx <= #result.diagnostics do
-									print("in json5: " .. result.diagnostics[idx].code)
-									if result.diagnostics[idx].code == 519 then
-										-- "Trailing comma""
-										table.remove(result.diagnostics, idx)
-									elseif result.diagnostics[idx].code == 521 then
-										-- "Comments are not permitted in JSON."
-										table.remove(result.diagnostics, idx)
-									else
-										idx = idx + 1
-									end
-								end
+								-- 519: "Trailing comma""
+								-- 521: "Comments are not permitted in JSON."
+								_suppress(result.diagnostics, { 519, 521 })
 							end
 							vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
+						end,
+						-- this is the pull diagnostics method, in spec since 3.17.0
+						["textDocument/diagnostic"] = function(err, result, ctx, config)
+							local extension = vim.fn.fnamemodify(
+								vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf()),
+								":e"
+							)
+							if string.match(extension, "json5$", -6) and result.items ~= nil then
+								_suppress(result.items, { 519, 521 })
+							end
+							on_diagnostic(err, result, ctx, config)
 						end,
 					},
 				})
