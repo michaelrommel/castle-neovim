@@ -42,6 +42,13 @@ M.std_mappings = function()
 			reveal_force_cwd = true, -- change cwd without asking if needed
 		})
 	end
+	local function insert_datetime()
+		local output = vim.fn.systemlist "date -Iseconds"
+		local pos = vim.api.nvim_win_get_cursor(0)[2]
+		local line = vim.api.nvim_get_current_line()
+		local nline = line:sub(0, pos + 1) .. output[1] .. line:sub(pos + 2)
+		vim.api.nvim_set_current_line(nline)
+	end
 
 	-- remove the default mapping of Y to y$
 	vim.keymap.del('n', 'Y')
@@ -111,10 +118,8 @@ M.std_mappings = function()
 		{ "<leader>fp", function() tsc.find_files_from_project_git_root() end, desc = "Find files in project" },
 		-- clears search highlighting
 		{ "<leader>h",  "<cmd>nohl<cr>",                                       desc = "Hide search highlights" },
-		{ "<leader>s",  group = "Silicon" },
-		{ "<leader>sc", function() require("nvim-silicon").shoot() end,        desc = "Put code screenshot to clipboard" },
-		{ "<leader>sf", function() require("nvim-silicon").file() end,         desc = "Put code screenshot to file" },
-		{ "<leader>ss", function() require("nvim-silicon").clip() end,         desc = "Create code screenshot" },
+		{ "<leader>s",  group = "Shortcuts" },
+		{ "<leader>sd", insert_datetime,                                       desc = "Insert a ISO DateTimestamp" },
 		-- zen mode
 		{ "<leader>z",  function() require("zen-mode").toggle() end,           desc = "Toggle zen mode" },
 	})
