@@ -23,8 +23,9 @@ return {
 			-- This setting has no relation with the `automatic_installation` setting.
 			-- The Mason tools, which are not language servers should be in mason-tool-installer
 			ensure_installed = {
-				"bashls", "cssls", "eslint", "graphql", "html", "jedi_language_server", "jsonls", "lua_ls",
-				"rust_analyzer", "svelte", "tailwindcss", "ts_ls",
+				"bashls", "cssls", "eslint", "graphql", "html",
+				"jedi_language_server", "jsonls", "lua_ls", "rust_analyzer",
+				"svelte", "tailwindcss", "ts_ls",
 			},
 
 			-- Whether servers that are set up (via lspconfig) should be automatically installed if they're not already installed.
@@ -187,7 +188,8 @@ return {
 					settings = {
 						['rust-analyzer'] = {
 							diagnostics = {
-								enable = true,
+								-- enable = true,
+								enable = false,
 							},
 							cargo = {
 								allFeatures = true,
@@ -196,11 +198,12 @@ return {
 								}
 							},
 							checkOnSave = {
-								allFeatures = true,
-								overrideCommand = {
-									'cargo', 'clippy', '--workspace', '--message-format=json',
-									'--all-targets', '--all-features'
-								}
+								enable = false,
+								-- allFeatures = true,
+								-- overrideCommand = {
+								-- 	'cargo', 'clippy', '--workspace', '--message-format=json',
+								-- 	'--all-targets', '--all-features'
+								-- }
 							},
 						}
 					}

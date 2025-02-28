@@ -9,6 +9,8 @@ return {
 		require("mason-tool-installer").setup({
 			-- language servers go into mason-lspconfig
 			ensure_installed = {
+				"bacon",
+				"bacon-ls",
 				"codelldb",
 				"debugpy",
 				"js-debug-adapter",
