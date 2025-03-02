@@ -188,8 +188,7 @@ return {
 					settings = {
 						['rust-analyzer'] = {
 							diagnostics = {
-								-- enable = true,
-								enable = false,
+								enable = true,
 							},
 							cargo = {
 								allFeatures = true,
@@ -198,12 +197,12 @@ return {
 								}
 							},
 							checkOnSave = {
-								enable = false,
-								-- allFeatures = true,
-								-- overrideCommand = {
-								-- 	'cargo', 'clippy', '--workspace', '--message-format=json',
-								-- 	'--all-targets', '--all-features'
-								-- }
+								enable = true,
+								allFeatures = true,
+								overrideCommand = {
+									'cargo', 'clippy', '--workspace', '--message-format=json',
+									'--all-targets', '--all-features'
+								}
 							},
 						}
 					}

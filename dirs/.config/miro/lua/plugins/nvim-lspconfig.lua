@@ -6,6 +6,9 @@ return {
 		"sh", "bash", "zsh", "css", "graphql", "html", "json", "json5", "lua",
 		"python", "rust", "svelte", "javascript"
 	},
+	dependencies = {
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+	},
 	config = function()
 		require("lspconfig").bacon_ls.setup({
 			filetypes = { "rust" },
