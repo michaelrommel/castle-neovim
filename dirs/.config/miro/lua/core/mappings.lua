@@ -53,10 +53,10 @@ M.std_mappings = function()
 	-- remove the default mapping of Y to y$
 	vim.keymap.del('n', 'Y')
 
-	wk.add({
-		{ "gb", "<plug>(comment_toggle_blockwise_visual)", desc = "Comment toggle blockwise (visual)", mode = "v" },
-		{ "gc", "<plug>(comment_toggle_linewise_visual)",  desc = "Comment toggle linewise (visual)",  mode = "v" },
-	})
+	-- wk.add({
+	-- 	{ "gb", "<plug>(comment_toggle_blockwise_visual)", desc = "Comment toggle blockwise (visual)", mode = "v" },
+	-- 	{ "gc", "<plug>(comment_toggle_linewise_visual)",  desc = "Comment toggle linewise (visual)",  mode = "v" },
+	-- })
 	wk.add({
 		-- moves the cursor left and right in insert mode
 		{ "<C-h>", "<Left>",  desc = "Move 1 char left",  mode = { "i", "v" } },
@@ -64,16 +64,16 @@ M.std_mappings = function()
 		-- ['kj'] = { "<Esc>", "Alternative Escape" },
 	})
 	wk.add({
-		{ "<C-c>", function() miniterm_toggle() end,   desc = "Toggle Mini Terminal" },
+		{ "<C-c>", function() miniterm_toggle() end, desc = "Toggle Mini Terminal" },
 		-- jumps to splits
-		{ "<C-h>", "<C-w>h",                           desc = "Left split" },
-		{ "<C-j>", "<C-w>j",                           desc = "Lower split" },
-		{ "<C-k>", "<C-w>k",                           desc = "Upper split" },
-		{ "<C-l>", "<C-w>l",                           desc = "Right split" },
-		{ "[t",    function() tc.jump_prev() end,      desc = "Previous TODO" },
-		{ "]t",    function() tc.jump_next() end,      desc = "Next TODO" },
-		{ "gb",    "<plug>(comment_toggle_blockwise)", desc = "Comment toggle blockwise" },
-		{ "gc",    "<plug>(comment_toggle_linewise)",  desc = "Comment toggle linewise" },
+		{ "<C-h>", "<C-w>h",                         desc = "Left split" },
+		{ "<C-j>", "<C-w>j",                         desc = "Lower split" },
+		{ "<C-k>", "<C-w>k",                         desc = "Upper split" },
+		{ "<C-l>", "<C-w>l",                         desc = "Right split" },
+		{ "[t",    function() tc.jump_prev() end,    desc = "Previous TODO" },
+		{ "]t",    function() tc.jump_next() end,    desc = "Next TODO" },
+		-- { "gb",    "<plug>(comment_toggle_blockwise)", desc = "Comment toggle blockwise" },
+		-- { "gc",    "<plug>(comment_toggle_linewise)",  desc = "Comment toggle linewise" },
 	})
 	wk.add({
 		-- ['/'] = { function() flsh.jump() end, "Search with flash" },

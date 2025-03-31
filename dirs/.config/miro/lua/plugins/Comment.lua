@@ -5,9 +5,9 @@ return {
 	event = "BufEnter",
 	opts = {
 		mappings = {
-			-- we set up keymaps ourselves
-			basic = false,
-			extra = false,
-		}
+			basic = true,
+			extra = true,
+		},
+		ignore = '^$',
 	}
 }

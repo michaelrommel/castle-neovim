@@ -1,5 +1,4 @@
-// functions1.rs
-// Execute `rustlings hint functions1` or use the `hint` watch subcommand for a hint.
+// test module for various errors that should trigger diagnostics in neovim
 
 mod mymodule;
 
@@ -10,8 +9,6 @@ fn call_me() {
 fn plus(x: i32) -> i32 {
     x + 1;
 }
-
-asdf;
 
 fn main() {
     call_me();
