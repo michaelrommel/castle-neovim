@@ -64,14 +64,15 @@ M.std_mappings = function()
 		-- ['kj'] = { "<Esc>", "Alternative Escape" },
 	})
 	wk.add({
-		{ "<C-c>", function() miniterm_toggle() end, desc = "Toggle Mini Terminal" },
+		{ "<C-c>", function() miniterm_toggle() end,           desc = "Toggle Mini Terminal" },
 		-- jumps to splits
-		{ "<C-h>", "<C-w>h",                         desc = "Left split" },
-		{ "<C-j>", "<C-w>j",                         desc = "Lower split" },
-		{ "<C-k>", "<C-w>k",                         desc = "Upper split" },
-		{ "<C-l>", "<C-w>l",                         desc = "Right split" },
-		{ "[t",    function() tc.jump_prev() end,    desc = "Previous TODO" },
-		{ "]t",    function() tc.jump_next() end,    desc = "Next TODO" },
+		{ "<C-h>", "<C-w>h",                                   desc = "Left split" },
+		{ "<C-j>", "<C-w>j",                                   desc = "Lower split" },
+		{ "<C-k>", "<C-w>k",                                   desc = "Upper split" },
+		{ "<C-l>", "<C-w>l",                                   desc = "Right split" },
+		{ "[t",    function() tc.jump_prev() end,              desc = "Previous TODO" },
+		{ "]t",    function() tc.jump_next() end,              desc = "Next TODO" },
+		{ "-",     function() require("oil").open_float() end, desc = "Open Oil file manager" },
 		-- { "gb",    "<plug>(comment_toggle_blockwise)", desc = "Comment toggle blockwise" },
 		-- { "gc",    "<plug>(comment_toggle_linewise)",  desc = "Comment toggle linewise" },
 	})
@@ -176,75 +177,6 @@ M.gitsigns_mappings = function(bufnr)
 	wk.add({
 		{ "ih", buffer = bufnr, desc = ":<C-U>Gitsigns select_hunk<cr>", mode = { "o", "x" } },
 	})
-end
-
-M.cmp_mappings = function()
-	local cmp = require("cmp")
-	local has_words_before = function()
-		unpack = unpack or table.unpack
-		local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-		return col ~= 0 and
-			vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-	end
-	return {
-		-- scroll the documentation, if an entry provides it
-		['<C-y>'] = cmp.mapping.scroll_docs(-4), -- Up
-		['<C-e>'] = cmp.mapping.scroll_docs(4), -- Down
-		-- opens the menu if it does not automatically appear
-		['<C-Space>'] = cmp.mapping(function()
-			if cmp.visible() then
-				cmp.abort()
-			else
-				-- print("complete()")
-				cmp.complete()
-			end
-		end, { 's', 'i' }),
-		-- confirm the current selection and close float
-		['<CR>'] = cmp.mapping.confirm {
-			-- replace rest of the word if in the middle
-			behavior = cmp.ConfirmBehavior.Replace,
-			-- do not autoselect the first item on <CR>
-			select = false,
-		},
-		-- allow navigation inside the float with j and k
-		['j'] = cmp.mapping(function(fallback)
-			-- if cmp.visible() and cmp.get_active_entry() then
-			-- actually enter the float also on j
-			if cmp.visible() then
-				cmp.select_next_item()
-			else
-				fallback()
-			end
-		end, { 'i', 's' }),
-		['k'] = cmp.mapping(function(fallback)
-			if cmp.visible() and cmp.get_active_entry() then
-				cmp.select_prev_item()
-			else
-				fallback()
-			end
-		end, { 'i', 's' }),
-		-- inside float, navigate up/down, also jump in snippets
-		['<Tab>'] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_next_item()
-			elseif fn["vsnip#available"](1) == 1 then
-				feedkey("<Plug>(vsnip-expand-or-jump)", "")
-			elseif has_words_before() then
-				cmp.complete()
-			else
-				fallback()
-			end
-		end, { 'i', 's' }),
-		['<S-Tab>'] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_prev_item()
-			elseif fn["vsnip#available"](-1) == 1 then
-				feedkey("<Plug>(vsnip-jump-prev)", "")
-			else
-				fallback()
-			end
-		end, { 'i', 's' }),
-	}
 end
 
 M.dap_mappings = function()

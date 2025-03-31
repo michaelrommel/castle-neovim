@@ -11,6 +11,7 @@ fn plus(x: i32) -> i32 {
 }
 
 fn main() {
+    plus(123);
     call_me();
     call_me_not()
 }

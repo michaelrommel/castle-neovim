@@ -10,7 +10,7 @@ return {
 		"williamboman/mason.nvim",
 		-- language server configuration
 		"neovim/nvim-lspconfig",
-		"hrsh7th/nvim-cmp",
+		-- "hrsh7th/nvim-cmp",
 		-- separates the update intervals of lsp from autosaved files/buffers
 		"antoinemadec/FixCursorHold.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -49,7 +49,7 @@ return {
 		--local capabilities = require('cmp_nvim_lsp').default_capabilities()
 		local capabilities = vim.tbl_deep_extend("force",
 			vim.lsp.protocol.make_client_capabilities(),
-			require('cmp_nvim_lsp').default_capabilities()
+			require("blink.cmp").get_lsp_capabilities({}, false)
 		)
 		-- print(vim.inspect(vim.tbl_keys(capabilities)))
 

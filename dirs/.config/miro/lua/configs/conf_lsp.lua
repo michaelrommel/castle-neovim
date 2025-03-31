@@ -35,10 +35,8 @@ M.on_attach = function(client, bufnr)
 	-- disable the semantic tokens
 	-- client.server_capabilities.semanticTokensProvider = nil
 
-	-- print(string.format("%s -> %s", client.name, client.server_capabilities.documentRangeFormattingProvider))
-	-- print(string.format("%s -> %s", client.name, client.server_capabilities.documentFormattingProvider))
+	-- print(string.format("%s -> %s/%s", client.name,client.server_capabilities.documentFormattingProvider, client.server_capabilities.documentRangeFormattingProvider))
 	if client:supports_method("textDocument/formatting") then
-		-- print(string.format("Checking %s", client.name))
 		local deprecated = false
 		for _, n in ipairs(deprecatedFormatters) do
 			local _, _, c, f = string.find(n, '(.*)/(.*)')
@@ -52,11 +50,6 @@ M.on_attach = function(client, bufnr)
 		if deprecated then
 			client.server_capabilities.documentFormattingProvider = false
 			client.server_capabilities.documentRangeFormattingProvider = false
-			if client.name == "null-ls" then
-				if not require("null-ls.generators").can_run(vim.bo[bufnr].filetype, require("null-ls.methods").lsp.FORMATTING) then
-					vim.bo[bufnr].formatexpr = nil
-				end
-			end
 		else
 			local augroup = vim.api.nvim_create_augroup("LspFormatting", { clear = true })
 			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
@@ -68,7 +61,6 @@ M.on_attach = function(client, bufnr)
 				end,
 			})
 			-- we can use the lsp formatter also for gq commands
-			-- print(string.format("%s -> %s", client.name, client.server_capabilities.documentRangeFormattingProvider))
 			if client:supports_method("textDocument/rangeFormatting") then
 				-- print(client.name .. " can range format")
 				vim.api.nvim_buf_set_option(bufnr, "formatexpr", 'v:lua.LspRangeFormat()')
