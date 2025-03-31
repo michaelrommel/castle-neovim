@@ -1,6 +1,6 @@
 local M = {}
 
-local deprecatedFormatters = { "tsserver", "jsonls", "null-ls/markdown" }
+local deprecatedFormatters = { "ts_ls", "jsonls" }
 local utf8 = require("core.utils").utf8
 
 -- needs to be a global to be used also as formatexpr
@@ -36,7 +36,9 @@ M.on_attach = function(client, bufnr)
 	-- client.server_capabilities.semanticTokensProvider = nil
 
 	-- print(string.format("%s -> %s", client.name, client.server_capabilities.documentRangeFormattingProvider))
-	if client.supports_method("textDocument/formatting") then
+	-- print(string.format("%s -> %s", client.name, client.server_capabilities.documentFormattingProvider))
+	if client:supports_method("textDocument/formatting") then
+		print(string.format("Checking %s", client.name))
 		local deprecated = false
 		for _, n in ipairs(deprecatedFormatters) do
 			local _, _, c, f = string.find(n, '(.*)/(.*)')
@@ -67,7 +69,7 @@ M.on_attach = function(client, bufnr)
 			})
 			-- we can use the lsp formatter also for gq commands
 			-- print(string.format("%s -> %s", client.name, client.server_capabilities.documentRangeFormattingProvider))
-			if client.supports_method("textDocument/rangeFormatting") then
+			if client:supports_method("textDocument/rangeFormatting") then
 				-- print(client.name .. " can range format")
 				vim.api.nvim_buf_set_option(bufnr, "formatexpr", 'v:lua.LspRangeFormat()')
 			else
@@ -83,7 +85,7 @@ M.on_attach = function(client, bufnr)
 			local opts = {
 				focusable = false,
 				close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-				border = 'rounded',
+				-- border = 'rounded',
 				source = 'always',
 				prefix = utf8(0xf082d) .. ' ',
 				scope = 'cursor',
@@ -92,21 +94,17 @@ M.on_attach = function(client, bufnr)
 		end
 	})
 
-	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-		vim.lsp.handlers.hover,
-		{ border = "rounded" }
-	)
-	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-		vim.lsp.handlers.signature_help,
-		{ border = "rounded" }
-	)
-	vim.diagnostic.config({
-		float = { border = "rounded" }
-	})
-
-	require("lspconfig.ui.windows").default_options = {
-		border = "rounded"
-	}
+	-- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+	-- 	vim.lsp.handlers.hover,
+	-- 	{ border = "rounded" }
+	-- )
+	-- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+	-- 	vim.lsp.handlers.signature_help,
+	-- 	{ border = "rounded" }
+	-- )
+	-- require("lspconfig.ui.windows").default_options = {
+	-- 	border = "rounded"
+	-- }
 
 	require("core.mappings").lsp_mappings(bufnr)
 end

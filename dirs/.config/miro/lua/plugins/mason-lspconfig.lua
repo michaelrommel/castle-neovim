@@ -55,14 +55,6 @@ return {
 
 		vim.g.cursorhold_updatetime = 500
 
-		vim.diagnostic.config({
-			virtual_text = true,
-			signs = true,
-			underline = true,
-			update_in_insert = false,
-			severity_sort = false,
-		})
-
 		-- this handler also sets the keymppings
 		local on_attach = require("configs.conf_lsp").on_attach
 

@@ -1,13 +1,34 @@
 local M = {}
 
 local utf8 = require("core.utils").utf8
-local fn = vim.fn
 
 -- Change diagnostic signs to be consistent with defaults from nvim-lualine
-fn.sign_define("DiagnosticSignError", { text = utf8(0xf659), texthl = "DiagnosticSignError" })
-fn.sign_define("DiagnosticSignWarn", { text = utf8(0xf529), texthl = "DiagnosticSignWarn" })
-fn.sign_define("DiagnosticSignInfo", { text = utf8(0xf7fc), texthl = "DiagnosticSignInfo" })
-fn.sign_define("DiagnosticSignHint", { text = utf8(0xf835), texthl = "DiagnosticSignHint" })
+vim.diagnostic.config({
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = utf8(0xf659),
+			[vim.diagnostic.severity.WARN] = utf8(0xf529),
+			[vim.diagnostic.severity.INFO] = utf8(0xf7fc),
+			[vim.diagnostic.severity.HINT] = utf8(0xf835),
+		},
+		numhl = {
+			[vim.diagnostic.severity.ERROR] = 'DiagnosticError',
+			[vim.diagnostic.severity.WARN] = 'DiagnosticWarn',
+			[vim.diagnostic.severity.INFO] = 'DiagnosticInfo',
+			[vim.diagnostic.severity.HINT] = 'DiagnosticHint',
+
+		},
+	},
+	-- float = { border = "rounded" },
+	virtual_text = {
+		current_line = true,
+		prefix = utf8(0x25cf)
+	},
+	virtual_lines = false,
+	underline = true,
+	update_in_insert = false,
+	severity_sort = true,
+})
 
 -- Diagnostic popup
 vim.cmd [[autocmd! ColorScheme * highlight NormalFloat guibg=#1d2021]]

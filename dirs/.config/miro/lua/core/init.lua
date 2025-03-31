@@ -34,6 +34,8 @@ opt.number = true
 opt.relativenumber = true
 -- always show the signcolumn for git status and errors
 opt.signcolumn = "yes:1"
+-- globally set new border
+opt.winborder = "rounded"
 -- display certain invisible characters
 opt.listchars = { tab = utf8(0xBB) .. ' ', trail = utf8(0xB7), nbsp = '~' }
 opt.list = true

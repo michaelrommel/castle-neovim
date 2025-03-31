@@ -1,6 +1,4 @@
 local M = {}
-local fn = vim.fn
-local api = vim.api
 
 M.opts = {
 	ui = {

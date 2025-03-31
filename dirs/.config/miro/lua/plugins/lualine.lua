@@ -7,7 +7,7 @@ return {
 		local function active_lsps()
 			local filetype = vim.bo.filetype
 			local bufnr = vim.api.nvim_get_current_buf()
-			local clients = vim.lsp.get_active_clients()
+			local clients = vim.lsp.get_clients()
 			local clients_list = {}
 			for _, client in pairs(clients) do
 				local filetypes = client.config.filetypes or {}
