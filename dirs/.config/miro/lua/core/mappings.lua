@@ -53,19 +53,13 @@ M.std_mappings = function()
 	-- remove the default mapping of Y to y$
 	vim.keymap.del('n', 'Y')
 
-	-- wk.add({
-	-- 	{ "gb", "<plug>(comment_toggle_blockwise_visual)", desc = "Comment toggle blockwise (visual)", mode = "v" },
-	-- 	{ "gc", "<plug>(comment_toggle_linewise_visual)",  desc = "Comment toggle linewise (visual)",  mode = "v" },
-	-- })
 	wk.add({
 		-- moves the cursor left and right in insert mode
 		{ "<C-h>", "<Left>",  desc = "Move 1 char left",  mode = { "i", "v" } },
 		{ "<C-l>", "<Right>", desc = "Move 1 char right", mode = { "i", "v" } },
-		-- ['kj'] = { "<Esc>", "Alternative Escape" },
 	})
 	wk.add({
 		{ "<C-c>", function() miniterm_toggle() end,           desc = "Toggle Mini Terminal" },
-		-- jumps to splits
 		{ "<C-h>", "<C-w>h",                                   desc = "Left split" },
 		{ "<C-j>", "<C-w>j",                                   desc = "Lower split" },
 		{ "<C-k>", "<C-w>k",                                   desc = "Upper split" },
@@ -73,8 +67,6 @@ M.std_mappings = function()
 		{ "[t",    function() tc.jump_prev() end,              desc = "Previous TODO" },
 		{ "]t",    function() tc.jump_next() end,              desc = "Next TODO" },
 		{ "-",     function() require("oil").open_float() end, desc = "Open Oil file manager" },
-		-- { "gb",    "<plug>(comment_toggle_blockwise)", desc = "Comment toggle blockwise" },
-		-- { "gc",    "<plug>(comment_toggle_linewise)",  desc = "Comment toggle linewise" },
 	})
 	wk.add({
 		-- ['/'] = { function() flsh.jump() end, "Search with flash" },
@@ -82,7 +74,6 @@ M.std_mappings = function()
 		{ "S", function() flsh.treesitter() end, desc = "Search Treesitter tags with flash", mode = { "n", "x" } },
 	})
 	wk.add({
-		-- ['kj'] = { "<C-\\><C-n>", "Put terminal in Normal mode" },
 		{ "<C-q>", "<C-\\><C-n>", desc = "Put terminal in Normal mode", mode = "t" },
 	})
 	wk.add({
@@ -97,9 +88,7 @@ M.std_mappings = function()
 		{ "<leader>b",  group = "Browse" },
 		{ "<leader>bd", function() require("browse.devdocs").search() end,       desc = "DevDocs" },
 		{ "<leader>bg", function() require("browse.devdocs").input_search() end, desc = "Google" },
-		-- opens up the tree
 		{ "<leader>e",  neotree_toggle,                                          desc = "Open explorer tree" },
-		-- ['e'] = { function() require("nvim-tree.api").tree.focus() end, "Open explorer tree" },
 		-- find functions with telescope
 		{ "<leader>f",  group = "Find" },
 		{ "<leader>fb", function() tb.buffers() end,                             desc = "Find buffers" },
@@ -279,15 +268,12 @@ M.lsp_mappings = function(bufnr)
 	end
 	wk.add({
 		-- ['K'] = { lsp.buf.hover, "Show LSP symbol info" },
-		{ "K",   show_documentation,     buffer = bufnr, desc = "Show LSP symbol info / docs", remap = false },
-		{ "[d]", diagnostic.goto_prev,   buffer = bufnr, desc = "Goto previous diagnostics",   remap = false },
-		{ "]d",  diagnostic.goto_next,   buffer = bufnr, desc = "Goto next diagnostics",       remap = false },
-		{ "g",   group = "Goto",         remap = false },
-		{ "gD",  lsp.buf.declaration,    buffer = bufnr, desc = "Goto declaration",            remap = false },
-		{ "gd",  lsp.buf.definition,     buffer = bufnr, desc = "Goto definition",             remap = false },
-		{ "gi",  lsp.buf.implementation, buffer = bufnr, desc = "Goto implementation",         remap = false },
-		{ "gr",  lsp.buf.references,     buffer = bufnr, desc = "Goto references",             remap = false },
-		{ "gs",  lsp.buf.signature_help, buffer = bufnr, desc = "Show LSP function signature", remap = false },
+		{ "K",   show_documentation,            buffer = bufnr, desc = "Show LSP symbol info / docs", remap = false },
+		{ "g",   group = "Goto",                remap = false },
+		{ "gr",  group = "Goto LSP References", remap = false },
+		{ "grD", lsp.buf.declaration,           buffer = bufnr, desc = "Goto declaration",            remap = false },
+		{ "grd", lsp.buf.definition,            buffer = bufnr, desc = "Goto definition",             remap = false },
+		{ "grs", lsp.buf.signature_help,        buffer = bufnr, desc = "Show LSP function signature", remap = false },
 	})
 	wk.add({
 		{ "<leader>D",  diagnostic.open_float,                                    buffer = bufnr, desc = "Open diagnostics float",        remap = false },
