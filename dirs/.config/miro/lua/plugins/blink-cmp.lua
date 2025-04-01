@@ -70,7 +70,7 @@ return {
 				emoji = {
 					module = "blink-emoji",
 					name = "Emoji",
-					score_offset = 15,
+					score_offset = 5,
 					opts = {
 						insert = false,
 					},
@@ -88,9 +88,16 @@ return {
 					-- 3 is recommended
 					min_keyword_length = 3,
 					max_items = 8,
+					score_offset = -5,
 					opts = {
 						dictionary_directories = { vim.fn.expand('~/.config/dictionaries') }
-					}
+					},
+					should_show_items = function()
+						return vim.tbl_contains(
+							{ "gitcommit", "markdown" },
+							vim.o.filetype
+						)
+					end
 				},
 				cmdline = {
 					-- ignores cmdline completions when executing shell commands
