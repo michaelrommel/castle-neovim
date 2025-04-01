@@ -132,17 +132,22 @@ return {
 						insert = false
 					},
 					transform_items = function(_, items)
-						return vim.tbl_map(
-							function(item)
-								-- for all except markdown replace with real unicode character
-								-- this essentially reverts the insert=false from above
-								if (not vim.tbl_contains({ "markdown" }, vim.bo.filetype)) then
-									item.textEdit.newText = item.insertText
-								end
-								return item
-							end,
-							items
-						)
+						if (vim.tbl_count(items) > 1) then
+							return items
+						else
+							return vim.tbl_map(
+								function(item)
+									-- for all except markdown replace with real unicode character
+									-- this essentially reverts the insert=false from above
+									if (not vim.tbl_contains({ "markdown" }, vim.bo.filetype)) then
+										-- print(string.format("%s -> %s", item.textEdit.newText, item.insertText))
+										item.textEdit.newText = item.insertText
+									end
+									return item
+								end,
+								items
+							)
+						end
 					end,
 				},
 				dictionary = {
