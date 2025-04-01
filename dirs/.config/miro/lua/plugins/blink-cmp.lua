@@ -93,10 +93,9 @@ return {
 						dictionary_directories = { vim.fn.expand('~/.config/dictionaries') }
 					},
 					should_show_items = function()
-						return vim.tbl_contains(
-							{ "gitcommit", "markdown" },
-							vim.o.filetype
-						)
+						if ((not vim.o.filetype) or (vim.o.filetype == '') or (vim.tbl_contains({ "gitcommit", "markdown" }, vim.o.filetype))) then
+							return true
+						end
 					end
 				},
 				cmdline = {
