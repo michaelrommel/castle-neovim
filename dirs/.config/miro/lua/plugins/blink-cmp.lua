@@ -4,6 +4,10 @@ return {
 	dependencies = {
 		'rafamadriz/friendly-snippets',
 		'moyiz/blink-emoji.nvim',
+		{
+			'Kaiser-Yang/blink-cmp-dictionary',
+			dependencies = { 'nvim-lua/plenary.nvim' }
+		}
 	},
 
 	-- use a release tag to download pre-built binaries
@@ -61,7 +65,7 @@ return {
 		-- Default list of enabled providers defined so that you can extend it
 		-- elsewhere in your config, without redefining it, due to `opts_extend`
 		sources = {
-			default = { 'lsp', 'path', 'snippets', 'buffer', 'emoji' },
+			default = { 'lsp', 'path', 'snippets', 'buffer', 'emoji', 'dictionary' },
 			providers = {
 				emoji = {
 					module = "blink-emoji",
@@ -76,6 +80,17 @@ return {
 							vim.o.filetype
 						)
 					end
+				},
+				dictionary = {
+					module = 'blink-cmp-dictionary',
+					name = 'Dict',
+					-- Make sure this is at least 2.
+					-- 3 is recommended
+					min_keyword_length = 3,
+					max_items = 8,
+					opts = {
+						dictionary_directories = { vim.fn.expand('~/.config/dictionaries') }
+					}
 				},
 				cmdline = {
 					-- ignores cmdline completions when executing shell commands
