@@ -5,7 +5,7 @@ return {
 	event = "BufEnter",
 	opts = {
 		rooter_patterns = { "pyproject.toml", "package.json", "Cargo.toml", ".git" },
-		exclude_filetypes = { "neo-tree" },
+		exclude_filetypes = { "neo-tree", "oil" },
 		fallback_to_parent = true,
 	},
 }
