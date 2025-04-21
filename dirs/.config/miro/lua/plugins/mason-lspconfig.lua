@@ -46,7 +46,7 @@ return {
 		require("lspconfig.ui.windows").default_options.border = 'rounded'
 
 		-- set the default client capabilities from completion module
-		--local capabilities = require('cmp_nvim_lsp').default_capabilities()
+		-- local capabilities = require('cmp_nvim_lsp').default_capabilities()
 		local capabilities = vim.tbl_deep_extend("force",
 			vim.lsp.protocol.make_client_capabilities(),
 			require("blink.cmp").get_lsp_capabilities({}, false)
@@ -55,7 +55,7 @@ return {
 
 		vim.g.cursorhold_updatetime = 500
 
-		-- this handler also sets the keymppings
+		-- this handler also sets the key mappings
 		local on_attach = require("configs.conf_lsp").on_attach
 
 		require("mason-lspconfig").setup_handlers {

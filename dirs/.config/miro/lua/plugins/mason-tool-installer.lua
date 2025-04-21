@@ -13,6 +13,7 @@ return {
 				"bacon-ls",
 				"codelldb",
 				"debugpy",
+				"harper-ls",
 				"js-debug-adapter",
 				"prettier",
 				"shellcheck",
