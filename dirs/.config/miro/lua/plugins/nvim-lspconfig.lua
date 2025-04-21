@@ -41,6 +41,7 @@ return {
 					userDictPath = "",
 					fileDictPath = "",
 					linters = {
+						Dashes = false,
 						SpellCheck = true,
 						SpelledNumbers = false,
 						AnA = true,
