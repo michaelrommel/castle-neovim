@@ -14,6 +14,7 @@ M.std_mappings = function()
 	local tsc = require("configs.conf_telescope")
 	local tc = require("todo-comments")
 	local flsh = require("flash")
+	local oil = require("oil")
 
 	local ttc = require("configs.conf_toggleterm")
 	local term = require('toggleterm.terminal').Terminal
@@ -33,7 +34,7 @@ M.std_mappings = function()
 				reveal_file = vim.fn.getcwd()
 			end
 		end
-		print("neo-tree: reveal_file is " .. reveal_file)
+		print("neo-tree: file is at " .. reveal_file)
 		require('neo-tree.command').execute({
 			action = "focus", -- OPTIONAL, this is the default value
 			source = "filesystem", -- OPTIONAL, this is the default value
@@ -59,14 +60,14 @@ M.std_mappings = function()
 		{ "<C-l>", "<Right>", desc = "Move 1 char right", mode = { "i", "v" } },
 	})
 	wk.add({
-		{ "<C-c>", function() miniterm_toggle() end,           desc = "Toggle Mini Terminal" },
-		{ "<C-h>", "<C-w>h",                                   desc = "Left split" },
-		{ "<C-j>", "<C-w>j",                                   desc = "Lower split" },
-		{ "<C-k>", "<C-w>k",                                   desc = "Upper split" },
-		{ "<C-l>", "<C-w>l",                                   desc = "Right split" },
-		{ "[t",    function() tc.jump_prev() end,              desc = "Previous TODO" },
-		{ "]t",    function() tc.jump_next() end,              desc = "Next TODO" },
-		{ "-",     function() require("oil").open_float() end, desc = "Open Oil file manager" },
+		{ "<C-c>", function() miniterm_toggle() end, desc = "Toggle Mini Terminal" },
+		{ "<C-h>", "<C-w>h",                         desc = "Left split" },
+		{ "<C-j>", "<C-w>j",                         desc = "Lower split" },
+		{ "<C-k>", "<C-w>k",                         desc = "Upper split" },
+		{ "<C-l>", "<C-w>l",                         desc = "Right split" },
+		{ "[t",    function() tc.jump_prev() end,    desc = "Previous TODO" },
+		{ "]t",    function() tc.jump_next() end,    desc = "Next TODO" },
+		{ "-",     function() oil.open_float() end,  desc = "Open Oil file manager" },
 	})
 	wk.add({
 		-- ['/'] = { function() flsh.jump() end, "Search with flash" },

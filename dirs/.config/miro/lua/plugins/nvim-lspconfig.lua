@@ -11,12 +11,11 @@ return {
 		"saghen/blink.cmp",
 	},
 	config = function()
-		-- local capabilities = require("blink.cmp").get_lsp_capabilities()
+		local on_attach = require("configs.conf_lsp").on_attach
 		local capabilities = vim.tbl_deep_extend("force",
 			vim.lsp.protocol.make_client_capabilities(),
 			require("blink.cmp").get_lsp_capabilities({}, false)
 		)
-		local on_attach = require("configs.conf_lsp").on_attach
 		require("lspconfig").bacon_ls.setup({
 			filetypes = { "rust" },
 			root_dir = require("lspconfig/util").root_pattern(
@@ -33,26 +32,19 @@ return {
 			}
 		})
 		require("lspconfig").harper_ls.setup({
+			filetypes = { "markdown" },
 			on_attach = on_attach,
 			capabilities = capabilities,
-			filetypes = { "markdown" },
 			settings = {
 				["harper-ls"] = {
 					userDictPath = "",
 					fileDictPath = "",
 					linters = {
 						Dashes = false,
-						SpellCheck = true,
+						SpellCheck = false,
 						SpelledNumbers = false,
-						AnA = true,
-						SentenceCapitalization = true,
-						UnclosedQuotes = true,
+						SentenceCapitalization = false,
 						WrongQuotes = false,
-						LongSentences = true,
-						RepeatedWords = true,
-						Spaces = true,
-						Matcher = true,
-						CorrectNumberSuffix = true
 					},
 					codeActions = {
 						ForceStable = false
