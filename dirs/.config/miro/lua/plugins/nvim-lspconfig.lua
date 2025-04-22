@@ -37,14 +37,15 @@ return {
 			capabilities = capabilities,
 			settings = {
 				["harper-ls"] = {
-					userDictPath = "",
-					fileDictPath = "",
+					userDictPath = os.getenv("HOME") .. "/.config/harper-ls/dictionary.txt",
+					fileDictPath = os.getenv("HOME") .. "/.config/harper-ls/file_dictionaries",
 					linters = {
 						Dashes = false,
-						SpellCheck = false,
+						SpellCheck = true,
 						SpelledNumbers = false,
 						SentenceCapitalization = false,
 						WrongQuotes = false,
+						ToDoHyphen = false,
 					},
 					codeActions = {
 						ForceStable = false
