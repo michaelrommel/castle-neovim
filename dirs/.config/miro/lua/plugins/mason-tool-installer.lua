@@ -31,7 +31,6 @@ return {
 				"bash-language-server",
 				"codelldb",
 				"css-lsp",
-				"debugpy",
 				"eslint-lsp",
 				"graphql-language-service-cli",
 				"harper-ls",
