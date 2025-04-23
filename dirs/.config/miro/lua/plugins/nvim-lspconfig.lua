@@ -3,8 +3,8 @@ return {
 	"neovim/nvim-lspconfig",
 	lazy = true,
 	ft = {
-		"sh", "bash", "zsh", "css", "graphql", "html", "json", "json5", "lua",
-		"python", "rust", "svelte", "javascript", "markdown"
+		"sh", "bash", "zsh", "css", "gitcommit", "graphql", "html", "javascript",
+		"json", "json5", "lua", "markdown", "python", "rust", "svelte", "text"
 	},
 	dependencies = {
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -88,7 +88,7 @@ return {
 			capabilities = capabilities,
 		})
 		require("lspconfig").harper_ls.setup({
-			filetypes = { "markdown" },
+			filetypes = { "markdown", "gitcommit", "text" },
 			on_attach = on_attach,
 			capabilities = capabilities,
 			settings = {
