@@ -85,16 +85,16 @@ M.std_mappings = function()
 		{ "<leader>ss", function() require("nvim-silicon").shoot() end, desc = "Create code screenshot" },
 	})
 	wk.add({
-		{ "<leader>H",  function() vim.diagnostic.hide() end,                    desc = "Hide diagnostics" },
+		{ "<leader>H",  function() vim.diagnostic.hide() end,              desc = "Hide diagnostics" },
 		{ "<leader>b",  group = "Browse" },
-		{ "<leader>bd", function() require("browse.devdocs").search() end,       desc = "DevDocs" },
-		{ "<leader>bg", function() require("browse.devdocs").input_search() end, desc = "Google" },
-		{ "<leader>e",  neotree_toggle,                                          desc = "Open explorer tree" },
+		{ "<leader>bd", function() require("browse.devdocs").search() end, desc = "DevDocs" },
+		{ "<leader>bg", function() require("browse").input_search() end,   desc = "Google" },
+		{ "<leader>e",  neotree_toggle,                                    desc = "Open explorer tree" },
 		-- find functions with telescope
 		{ "<leader>f",  group = "Find" },
-		{ "<leader>fb", function() tb.buffers() end,                             desc = "Find buffers" },
-		{ "<leader>fc", function() ts.extensions.neoclip.default() end,          desc = "Find clipboard" },
-		{ "<leader>fd", function() tb.diagnostics() end,                         desc = "Find diagnostics" },
+		{ "<leader>fb", function() tb.buffers() end,                       desc = "Find buffers" },
+		{ "<leader>fc", function() ts.extensions.neoclip.default() end,    desc = "Find clipboard" },
+		{ "<leader>fd", function() tb.diagnostics() end,                   desc = "Find diagnostics" },
 		{
 			"<leader>ff",
 			function()

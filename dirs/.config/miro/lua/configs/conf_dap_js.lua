@@ -37,27 +37,6 @@ M.setup = function()
 			address = "127.0.0.1",
 		},
 	}
-	-- require("dap").adapters["codelldb"] = {
-	-- 	type = "server",
-	-- 	port = "${port}",
-	-- 	executable = {
-	-- 		command = "codelldb",
-	-- 		args = { "--port", "${port}" }
-	-- 	}
-	-- }
-	-- require("dap").configurations["rust"] = {
-	-- 	{
-	-- 		type = "codelldb",
-	-- 		request = "launch",
-	-- 		name = "Rust Launch file",
-	-- 		program = function()
-	-- 			return vim.fn.input("exe: ", vim.fn.getcwd() .. "/target/debug/", "file")
-	-- 		end,
-	-- 		cwd = "${workspaceFolder}",
-	-- 		stopOnEntry = true,
-	-- 		showDisassembly = "never",
-	-- 	},
-	-- }
 end
 
 return M

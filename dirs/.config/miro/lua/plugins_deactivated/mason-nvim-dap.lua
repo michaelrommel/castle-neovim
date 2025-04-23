@@ -6,7 +6,5 @@ return {
 	dependencies = {
 		"williamboman/mason.nvim"
 	},
-	opts = {
-		ensure_installed = { "js", "python", "codelldb" }
-	}
+	opts = {}
 }

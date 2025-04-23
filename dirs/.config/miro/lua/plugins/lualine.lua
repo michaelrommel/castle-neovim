@@ -23,7 +23,7 @@ return {
 		require("lualine").setup({
 			options = {
 				ignore_focus = {
-					"NvimTree",
+					"neo-tree",
 				}
 			},
 			sections = {
