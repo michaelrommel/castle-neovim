@@ -6,20 +6,48 @@ return {
 	},
 	lazy = true,
 	config = function()
+		vim.api.nvim_create_autocmd('User', {
+			pattern = 'MasonToolsStartingInstall',
+			callback = function()
+				vim.schedule(function()
+					print 'mason-tool-installer starting...'
+				end)
+			end,
+		})
+		vim.api.nvim_create_autocmd('User', {
+			pattern = 'MasonToolsUpdateCompleted',
+			callback = function(e)
+				vim.schedule(function()
+					print("mason-tool-installer finished.")
+					-- print(vim.inspect(e.data)) -- print the table that lists the programs that were installed
+				end)
+			end,
+		})
 		require("mason-tool-installer").setup({
 			-- language servers go into mason-lspconfig
 			ensure_installed = {
 				"bacon",
 				"bacon-ls",
+				"bash-language-server",
 				"codelldb",
+				"css-lsp",
 				"debugpy",
+				"eslint-lsp",
+				"graphql-language-service-cli",
 				"harper-ls",
+				"html-lsp",
+				"jedi-language-server",
 				"js-debug-adapter",
+				"json-lsp",
+				"lua-language-server",
 				"prettier",
+				"ruff",
 				"shellcheck",
 				"shfmt",
 				"stylua",
-				"ruff",
+				"svelte-language-server",
+				"tailwindcss-language-server",
+				"typescript-language-server",
 			},
 			-- if set to true this will check each tool for updates. If updates
 			-- are available the tool will be updated. This setting does not
