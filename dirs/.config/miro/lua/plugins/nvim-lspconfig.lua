@@ -48,7 +48,7 @@ return {
 			),
 			on_attach = on_attach,
 			capabilities = capabilities,
-			init_options = {
+			settings = {
 				-- 	updateOnSave = true,
 				-- 	updateOnSaveWaitMillis = 1000,
 				updateOnChange = true,
