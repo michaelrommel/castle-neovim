@@ -12,7 +12,7 @@ M.default_opts = {
 		end
 	end,
 	float_opts = {
-		border = "curved",
+		border = "rounded",
 		width = function()
 			return math.ceil(vim.o.columns * 0.7)
 		end,
