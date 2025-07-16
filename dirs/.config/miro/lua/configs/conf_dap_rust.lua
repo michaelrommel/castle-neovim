@@ -9,27 +9,20 @@ M.get_codelldb_adapter = function()
 	local command = nil
 	local args = nil
 	local code = nil
-	local ok, codelldb = pcall(mr.get_package, "codelldb")
-
-	if ok then
-		code = codelldb:get_install_path()
-	else
-		vim.notify_once("delaying rust dap init until mason codelldb is available")
-		return {}
-	end
+	local lib = vim.fn.expand "$MASON/packages/codelldb/extension/lldb/lib"
 
 	if utils.is_mac then
 		-- print(string.format("mac: %s", code))
-		command = code .. "/extension/adapter/codelldb"
+		command = "codelldb"
 		args = {
-			"--liblldb", code .. "/extension/lldb/lib/liblldb.dylib",
+			"--liblldb", lib .. "/liblldb.dylib",
 			"--settings", '{"showDisassembly": "never", "sourceLanguages": ["rust"]}'
 		}
 	else
 		-- print(string.format("linux: %s", code))
-		command = code .. "/extension/adapter/codelldb"
+		command = "codelldb"
 		args = {
-			"--liblldb", code .. "/extension/lldb/lib/liblldb.so",
+			"--liblldb", lib .. "/liblldb.so",
 			"--settings", '{"showDisassembly": "never", "sourceLanguages": ["rust"]}'
 		}
 	end

@@ -39,8 +39,6 @@ opt.winborder = "rounded"
 -- display certain invisible characters
 opt.listchars = { tab = utf8(0xBB) .. ' ', trail = utf8(0xB7), nbsp = '~' }
 opt.list = true
--- show max width of text
-opt.colorcolumn = "101"
 -- disable showing the vim mode in the statusline
 opt.showmode = false
 -- do not expand tabs to spaces and configure tabs
@@ -67,9 +65,22 @@ opt.foldmethod = "marker"
 -- we can break long lines in wrap mode without inserting a <EOL>
 opt.linebreak = true
 opt.breakindent = true
+opt.autoindent = true
 opt.showbreak = " " .. utf8(0xf17aa) .. " "
 -- set max syntax highlighting column, after that syntax is off
 opt.synmaxcol = 240
+-- show max width of text
+opt.colorcolumn = "101"
+-- formatting
+-- j: compress comment leaders when joining lines
+-- c: autowrap with comments
+-- r: comments after return/enter
+-- o: insert comment leader with o/O
+-- /: only insert comment leader when on start of the line
+-- q: comment formatting with gq
+-- n: recognize numbered lists
+-- p: prose feature, do not break line after dot space
+opt.formatoptions = "jcro/qnp"
 -- set sessionoptions for compatibility with auto-session
 opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 -- these options are necessary for which-key as well
