@@ -6,15 +6,16 @@ return {
 	config = function()
 		require("nvim-autopairs").setup({
 			fast_wrap = {
-				map = '<M-e>',
+				map = '<C-q>',
 				chars = { '{', '[', '(', '"', "'" },
-				pattern = [=[[%'%"%>%]%)%}%,]]=],
+				pattern = [=[[%'%"%>%]%)%}%,%;]]=],
 				end_key = '$',
 				before_key = 'h',
 				after_key = 'l',
 				cursor_pos_before = true,
+				avoid_move_to_end = false,
 				keys = 'qwertyuiopzxcvbnmasdfghjkl',
-				manual_position = true,
+				manual_position = false,
 				highlight = 'Search',
 				highlight_grey = 'Comment'
 			},
