@@ -20,10 +20,6 @@ if is_mac; then
 		echo "(brew) installing ${missing[*]}"
 		brew install "${missing[@]}"
 	fi
-	if ! python3 -c 'import pip;' >/dev/null 2>&1; then
-		# add pip3
-		python3 -mensurepip
-	fi
 else
 	desired=(curl git universal-ctags unzip fontconfig python3-pip
 		ninja-build gettext cmake build-essential autoconf automake)
@@ -78,6 +74,16 @@ if ! grep -qs python ~/.config/mise/config.toml; then
 	# install python with mise, to avoit cluttering the global installation with modules
 	mise install python@latest
 	mise use -g python@latest
+fi
+
+if ! python3 -c 'import pip;' >/dev/null 2>&1; then
+	echo "Installing pip"
+	python3 -mensurepip
+fi
+
+if ! pipx --version >/dev/null 2>&1; then
+	echo "Installing pipx"
+	python3 -mpip install --user pipx
 fi
 
 if ! python3 -c 'import pynvim;' >/dev/null 2>&1; then
