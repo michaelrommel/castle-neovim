@@ -13,7 +13,7 @@ eval "$(mise hook-env)"
 echo "Installing dependency packages"
 if is_mac; then
 	desired=(cmake shellcheck@0.9 shfmt@1.33 universal-ctags
-		fontconfig@2.14 tree-sitter@0.20)
+		fontconfig@2.14)
 	missing=()
 	check_brewed "missing" "${desired[@]}"
 	if [[ "${#missing[@]}" -gt 0 ]]; then
