@@ -70,6 +70,11 @@ if ! tree-sitter -V >/dev/null 2>&1; then
 	cargo install tree-sitter-cli
 fi
 
+if ! silicon -V >/dev/null 2>&1; then
+	echo "Installing silicon"
+	cargo install silicon
+fi
+
 if ! grep -qs python ~/.config/mise/config.toml; then
 	# install python with mise, to avoit cluttering the global installation with modules
 	mise install python@latest
