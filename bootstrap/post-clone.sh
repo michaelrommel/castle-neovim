@@ -13,7 +13,7 @@ eval "$(mise hook-env)"
 echo "Installing dependency packages"
 if is_mac; then
 	desired=(cmake shellcheck@0.9 shfmt@1.33 universal-ctags
-		fontconfig@2.14 python@3.13 tree-sitter@0.20)
+		fontconfig@2.14 tree-sitter@0.20)
 	missing=()
 	check_brewed "missing" "${desired[@]}"
 	if [[ "${#missing[@]}" -gt 0 ]]; then
@@ -21,7 +21,7 @@ if is_mac; then
 		brew install "${missing[@]}"
 	fi
 else
-	desired=(curl git universal-ctags unzip fontconfig python3-pip
+	desired=(curl git universal-ctags unzip fontconfig
 		ninja-build gettext cmake build-essential autoconf automake)
 	missing=()
 	check_dpkged "missing" "${desired[@]}"
