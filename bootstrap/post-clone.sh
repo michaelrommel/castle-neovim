@@ -75,6 +75,12 @@ if ! silicon -V >/dev/null 2>&1; then
 	cargo install silicon
 fi
 
+if ! node --version >/dev/null 2>&1; then
+	echo "Installing node"
+	mise install node@latest
+	mise use -g node@latest
+fi
+
 if ! grep -qs python ~/.config/mise/config.toml; then
 	# install python with mise, to avoit cluttering the global installation with modules
 	mise install python@latest
