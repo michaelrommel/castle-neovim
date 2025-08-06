@@ -11,11 +11,8 @@ return {
 			current_line_blame_opts = {
 				virt_text = true,
 				virt_text_pos = 'right_align', -- 'eol' | 'overlay' | 'right_align'
-				delay = 1000,
+				delay = 500,
 				ignore_whitespace = false,
-			},
-			preview_config = {
-				border = "rounded",
 			},
 		})
 	end

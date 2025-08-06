@@ -3,10 +3,6 @@ local fn = vim.fn
 local lsp = vim.lsp
 local diagnostic = vim.diagnostic
 
-local feedkey = function(key, mode)
-	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
-end
-
 M.std_mappings = function()
 	local wk = require("which-key")
 	local ts = require("telescope")
@@ -21,27 +17,6 @@ M.std_mappings = function()
 	local miniterm = term:new(ttc.miniterm_opts)
 	local function miniterm_toggle()
 		miniterm:toggle()
-	end
-	local function neotree_toggle()
-		local reveal_file = vim.fn.expand('%:p')
-		if (reveal_file == '') then
-			reveal_file = vim.fn.getcwd()
-		else
-			local f = io.open(reveal_file, "r")
-			if (f) then
-				f.close(f)
-			else
-				reveal_file = vim.fn.getcwd()
-			end
-		end
-		print("neo-tree: file is at " .. reveal_file)
-		require('neo-tree.command').execute({
-			action = "focus", -- OPTIONAL, this is the default value
-			source = "filesystem", -- OPTIONAL, this is the default value
-			position = "left", -- OPTIONAL, this is the default value
-			reveal_file = reveal_file, -- path to file or folder to reveal
-			reveal_force_cwd = true, -- change cwd without asking if needed
-		})
 	end
 	local function insert_datetime()
 		local output = vim.fn.systemlist "date -Iseconds"
@@ -89,7 +64,6 @@ M.std_mappings = function()
 		{ "<leader>b",  group = "Browse" },
 		{ "<leader>bd", function() require("browse.devdocs").search() end, desc = "DevDocs" },
 		{ "<leader>bg", function() require("browse").input_search() end,   desc = "Google" },
-		{ "<leader>e",  neotree_toggle,                                    desc = "Open explorer tree" },
 		-- find functions with telescope
 		{ "<leader>f",  group = "Find" },
 		{ "<leader>fb", function() tb.buffers() end,                       desc = "Find buffers" },
@@ -111,8 +85,6 @@ M.std_mappings = function()
 		{ "<leader>h",  "<cmd>nohl<cr>",                                       desc = "Hide search highlights" },
 		{ "<leader>s",  group = "Shortcuts" },
 		{ "<leader>sd", insert_datetime,                                       desc = "Insert a ISO DateTimestamp" },
-		-- zen mode
-		{ "<leader>z",  function() require("zen-mode").toggle() end,           desc = "Toggle zen mode" },
 	})
 end
 

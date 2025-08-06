@@ -6,6 +6,7 @@ return {
 	},
 	lazy = true,
 	config = function()
+		require('mason').setup({})
 		vim.api.nvim_create_autocmd('User', {
 			pattern = 'MasonToolsStartingInstall',
 			callback = function()

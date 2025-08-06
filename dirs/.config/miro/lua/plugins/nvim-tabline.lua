@@ -8,7 +8,7 @@ return {
 		show_index = true,
 		show_modify = true,
 		show_icon = true,
-		modify_indicator = ":+",
+		modify_indicator = "[+]",
 		no_name = "no name",
 		brackets = { "", "" },
 		inactive_tab_max_length = 0,
